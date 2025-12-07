@@ -1,0 +1,274 @@
+openapi: 3.0.0
+info:
+  title: AI-Driven Book + RAG Chatbot API
+  description: API for the AI-Driven Book generation and RAG chatbot functionality
+  version: 1.0.0
+  contact:
+    name: AI-Driven Book + RAG Chatbot Team
+    email: team@example.com
+
+servers:
+  - url: https://api.example.com
+    description: Production server
+  - url: https://staging-api.example.com
+    description: Staging server
+
+paths:
+  /embed:
+    post:
+      summary: Process and embed book content
+      description: Processes book content and stores embeddings in vector database (FR-007)
+      operationId: embedContent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbedRequest'
+      responses:
+        '200':
+          description: Content successfully embedded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbedResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Content Processing
+
+  /query:
+    post:
+      summary: Global QA query
+      description: Ask questions about the entire book content (FR-007, FR-010)
+      operationId: globalQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Query processed successfully with citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - RAG Chatbot
+
+  /select:
+    post:
+      summary: Selected-text QA query
+      description: Ask questions related only to selected text (FR-007, FR-010, FR-015)
+      operationId: selectedTextQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectedTextQueryRequest'
+      responses:
+        '200':
+          description: Query processed successfully with citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid query or selected text
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - RAG Chatbot
+
+  /health:
+    get:
+      summary: Health check
+      description: Check the health of the backend service (FR-007)
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '500':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Health
+
+components:
+  schemas:
+    EmbedRequest:
+      type: object
+      required:
+        - bookId
+        - content
+      properties:
+        bookId:
+          type: string
+          description: Unique identifier for the book
+        content:
+          type: string
+          description: Book content to be embedded
+        chunkSize:
+          type: integer
+          description: Size of text chunks in tokens (default 500) (FR-009)
+          default: 500
+        overlap:
+          type: integer
+          description: Overlap between chunks in tokens (default 50) (FR-009)
+          default: 50
+
+    EmbedResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Content successfully embedded"
+        chunksProcessed:
+          type: integer
+          example: 25
+        collectionName:
+          type: string
+          example: "book_embeddings"
+          description: Name of the vector database collection (FR-008)
+
+    QueryRequest:
+      type: object
+      required:
+        - question
+        - bookId
+      properties:
+        question:
+          type: string
+          description: The question to ask about the book
+        bookId:
+          type: string
+          description: Unique identifier for the book to query
+        mode:
+          type: string
+          enum: [global]
+          description: QA mode (global QA) (FR-010)
+          default: global
+
+    SelectedTextQueryRequest:
+      type: object
+      required:
+        - question
+        - selectedText
+        - bookId
+      properties:
+        question:
+          type: string
+          description: The question about the selected text
+        selectedText:
+          type: string
+          description: The text that was selected by the user (FR-015)
+        bookId:
+          type: string
+          description: Unique identifier for the book to query
+        mode:
+          type: string
+          enum: [selected-text]
+          description: QA mode (selected-text QA) (FR-010)
+          default: selected-text
+
+    QueryResponse:
+      type: object
+      required:
+        - answer
+        - citations
+      properties:
+        answer:
+          type: string
+          description: The answer to the question
+        citations:
+          type: array
+          items:
+            type: string
+          description: Inline citations in format "[Chapter X: Paragraph Y]" (FR-014)
+          example: ["[Chapter 2: Paragraph 4]", "[Chapter 3: Paragraph 1]"]
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the answer
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum: [healthy, unhealthy]
+          example: healthy
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-12-05T10:30:00Z"
+        version:
+          type: string
+          example: "1.0.0"
+
+tags:
+  - name: Content Processing
+    description: Endpoints for processing and embedding book content
+  - name: RAG Chatbot
+    description: Endpoints for RAG-based question answering
+  - name: Health
+    description: Health check endpoints

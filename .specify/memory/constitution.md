@@ -1,55 +1,76 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# AI-Driven Book + RAG Chatbot (Hackathon Project) Constitution
+<!--
+Version change: 1.0.0 → 1.0.1
+List of modified principles:
+- None (only updating status and amendment date)
+Added sections:
+- None
+Removed sections:
+- None
+Templates requiring updates:
+- .specify/templates/plan-template.md: ⚠ pending (Constitution Check section needs explicit principles)
+- .specify/templates/spec-template.md: ⚠ pending (Implicit alignment with principles review needed)
+- .specify/templates/tasks-template.md: ⚠ pending (Implicit alignment with principles review needed)
+- .specify/templates/commands/*.md: ⚠ pending (No files found to check)
+- README.md: ⚠ pending (File not found)
+Follow-up TODOs:
+- RATIFICATION_DATE: Needs to be set at official adoption.
+-->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Specification-First Workflow
+All code must be generated from Spec-Kit documents.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### AI-Native Development
+Claude Code + Subagents + Agent Skills handle book generation and RAG.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Deterministic Structure
+Book layout, backend API, vector schemas remain stable.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Reusability
+Subagents + skills act as reusable intelligence.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Transparency
+Chatbot answers must provide citations from book text.
 
-### [PRINCIPLE_6_NAME]
+### Dual QA Mode
+Global book QA + selected-text QA.
 
+### Full Deployment
+Docusaurus → GitHub Pages, FastAPI → Render.
 
-[PRINCIPLE__DESCRIPTION]
+### Performance
+Optimized chunking and Qdrant vector search.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### Reliability
+Predictable builds using structured specs.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### Hackathon Compliance
+Must match all official deliverables and deadlines.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Implementation Status
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Completed Components
+- ✅ Docusaurus frontend with custom chatbot integration
+- ✅ FastAPI backend with RAG functionality
+- ✅ Qdrant vector database integration
+- ✅ Dual QA modes (global and selected-text)
+- ✅ Text selection workflow for contextual queries
+- ✅ Citation system with source tracking
+
+### Critical Issues Resolved
+- ✅ Backend import naming conflict (qdrant_client.py → qdrant_manager.py)
+- ✅ Relative import fixes across all modules
+- ✅ Docusaurus build and serve functionality verified
+
+### Current Status
+- Frontend: Production-ready build system
+- Backend: RAG pipeline fully functional
+- Integration: Selected-text QA workflow operational
+- Deployment: Ready for GitHub Pages + backend hosting
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution supersedes all other practices. Amendments require documentation, approval, and a migration plan. All PRs/reviews must verify compliance. Complexity must be justified.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.1 | **Ratified**: TODO(RATIFICATION_DATE): Needs to be set at official adoption. | **Last Amended**: 2025-12-05
