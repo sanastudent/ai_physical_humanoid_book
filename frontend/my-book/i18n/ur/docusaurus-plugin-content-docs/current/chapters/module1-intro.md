@@ -1,61 +1,45 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module1-intro.md
+# موڈیول 1: ROS 2 کا تعارف
 
-  TODO: Add Urdu translation below this comment.
--->
+## جائزہ
 
-# [Urdu Translation Required]
+ROS 2 (روبوٹ آپریٹنگ سسٹم 2) سب سے زیادہ استعمال ہونے والے روبوٹکس مڈل ویئر فریم ورک کی اگلی نسل ہے۔ اس کے جانشین ROS 1 کے برعکس، ROS 2 کو پیداواری سسٹمز کے لیے بنیاد سے تیار کیا گیا ہے، جس میں حقیقی وقت کی صلاحیتیں، بہتر سیکیورٹی، اور متعدد روبوٹ کی حمایت فراہم کرتا ہے۔
 
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
+## ROS 2 کیوں؟
 
----
+### صنعتی ا adoption
 
-**Original English Content (for reference):**
+ROS 2 کو دنیا بھر کی معروف روبوٹکس کمپنیوں اور تحقیقی اداروں نے اپنایا ہے:
 
-# Module 1: Introduction to ROS 2
+- **خودکار گاڑیاں**: کروز اور ایپیکس.ای آئی جیسی کمپنیاں ROS 2 استعمال کرتی ہیں
+- **صنعتی روبوٹکس**: اے بی بی، یونیورسل روبوٹس کا انضمام
+- **سروس روبوٹس**: صاف کرنے، ڈیلیوری، اور مہمان نوازی کے روبوٹس
+- **تحقیق**: یونیورسٹیاں اور لیبز دنیا بھر میں
 
-## Overview
+### ROS 1 پر کلیدی بہتریاں
 
-ROS 2 (Robot Operating System 2) is the next generation of the most widely used robotics middleware framework. Unlike its predecessor ROS 1, ROS 2 is built from the ground up for production systems, offering real-time capabilities, improved security, and multi-robot support.
+1. **حقیقی وقت کی کارکردگی**: RTOS سپورٹ اور متعین مواصلات
+2. **سیکیورٹی**: DDS-سیکیورٹی مشفر، تصدیق شدہ مواصلات کے لیے
+3. **متعدد پلیٹ فارم**: ونڈوز، میک او ایس، لینکس، ایمبیڈڈ سسٹمز
+4. **پیداوار کے لیے تیار**: سروس کی معیار (QoS) کی پالیسیاں
+5. **متعدد روبوٹ سسٹم**: روبوٹ ٹیموں کے لیے مقامی تعاون
 
-## Why ROS 2?
+## DDS مڈل ویئر
 
-### Industry Adoption
+ROS 2 **ڈیٹا ڈسٹری بیوشن سروس (DDS)** معیار کے اوپر تعمیر کیا گیا ہے۔ DDS فراہم کرتا ہے:
 
-ROS 2 has been adopted by leading robotics companies and research institutions worldwide:
-
-- **Autonomous Vehicles**: Companies like Cruise and Apex.AI use ROS 2
-- **Industrial Robotics**: ABB, Universal Robots integration
-- **Service Robots**: Cleaning, delivery, and hospitality robots
-- **Research**: Universities and labs globally
-
-### Key Improvements Over ROS 1
-
-1. **Real-Time Performance**: RTOS support and deterministic communication
-2. **Security**: DDS-Security for encrypted, authenticated communication
-3. **Multi-Platform**: Windows, macOS, Linux, embedded systems
-4. **Production-Ready**: Quality of Service (QoS) policies
-5. **Multi-Robot Systems**: Native support for robot teams
-
-## The DDS Middleware
-
-ROS 2 is built on top of the **Data Distribution Service (DDS)** standard. DDS provides:
-
-- **Discovery**: Automatic node detection without a central master
-- **Quality of Service**: Configurable reliability, durability, and latency
-- **Scalability**: Efficient communication in large distributed systems
+- **دریافت**: مرکزی ماسٹر کے بغیر خودکار نوڈ کا پتہ لگانا
+- **سروس کا معیار**: قابل ترتیب قابل اعتمادی، م耐用ity، اور دیری
+- **.scalability**: بڑے تقسیم شدہ سسٹم میں کارآمد مواصلات
 
 ```python
-# Example: Creating a simple ROS 2 node
+# مثال: ایک سادہ ROS 2 نوڈ تیار کرنا
 import rclpy
 from rclpy.node import Node
 
 class MinimalNode(Node):
     def __init__(self):
         super().__init__('minimal_node')
-        self.get_logger().info('Node has been started!')
+        self.get_logger().info('نوڈ شروع ہو گیا ہے!')
 
 def main(args=None):
     rclpy.init(args=args)
@@ -68,74 +52,74 @@ if __name__ == '__main__':
     main()
 ```
 
-## Core Concepts
+## بنیادی تصورات
 
-### Nodes
+### نوڈز
 
-A **node** is an independent process that performs computation. In a robotic system:
+ایک **نوڈ** ایک آزادانہ عمل ہے جو حساب کاری انجام دیتا ہے۔ ایک روبوٹک سسٹم میں:
 
-- **Sensor Node**: Reads and publishes sensor data
-- **Processing Node**: Transforms data (e.g., filters, algorithms)
-- **Actuator Node**: Sends commands to motors
-- **UI Node**: Provides visualization or user interface
+- **سینسر نوڈ**: سینسر ڈیٹا پڑھتا ہے اور شائع کرتا ہے
+- **پروسیسنگ نوڈ**: ڈیٹا کو تبدیل کرتا ہے (جیسے، فلٹر، الگورتھم)
+- **ایکچوایٹر نوڈ**: موتورز کو حکم بھیجتا ہے
+- **UI نوڈ**: وژولائزیشن یا صارف انٹرفیس فراہم کرتا ہے
 
-### Computation Graph
+### کمپیوٹیشن گراف
 
-Nodes communicate through a **computation graph**:
+نوڈز ایک **کمپیوٹیشن گراف** کے ذریعے بات چیت کرتے ہیں:
 
 ```
-[Camera Node] --image--> [Vision Node] --detections--> [Control Node] --commands--> [Motor Node]
+[کیمرہ نوڈ] --image--> [وژن نوڈ] --detections--> [کنٹرول نوڈ] --commands--> [موٹر نوڈ]
 ```
 
-### Workspace
+### ورک سپیس
 
-A ROS 2 workspace contains:
+ROS 2 ورک سپیس میں ہوتا ہے:
 
-- `src/`: Source code for packages
-- `build/`: Compiled code
-- `install/`: Installed packages
-- `log/`: Execution logs
+- `src/`: پیکجز کے لیے سورس کوڈ
+- `build/`: کمپائلڈ کوڈ
+- `install/`: انسٹال کردہ پیکجز
+- `log/`: ایکسیکیوشن لاگز
 
-## Exercise: Your First ROS 2 Node
+## ورقہ: آپ کا پہلا ROS 2 نوڈ
 
-**Task**: Create a node that prints "Hello, ROS 2!" every second.
+**کام**: ایک نوڈ تیار کریں جو ہر سیکنڈ "ہیلو، ROS 2!" پرنٹ کرتا ہے۔
 
-**Steps**:
+**مرحلے**:
 
-1. Create a new package:
+1. ایک نیا پیکج تیار کریں:
    ```bash
    ros2 pkg create --build-type ament_python my_first_package
    ```
 
-2. Write your node (see code example above)
+2. اپنا نوڈ لکھیں (اوپر کوڈ کی مثال دیکھیں)
 
-3. Build and source:
+3. تعمیر کریں اور ماخذ بنائیں:
    ```bash
    colcon build
    source install/setup.bash
    ```
 
-4. Run your node:
+4. اپنا نوڈ چلائیں:
    ```bash
    ros2 run my_first_package minimal_node
    ```
 
-## Summary
+## خلاصہ
 
-In this chapter, you learned:
+اس باب میں، آپ نے سیکھا:
 
-- ✓ What ROS 2 is and why it matters
-- ✓ Key improvements over ROS 1
-- ✓ The role of DDS middleware
-- ✓ Basic concepts: nodes, computation graphs
-- ✓ How to create your first node
+- ✓ ROS 2 کیا ہے اور اس کی کیوں اہمیت ہے
+- ✓ ROS 1 پر کلیدی بہتریاں
+- ✓ DDS مڈل ویئر کا کردار
+- ✓ بنیادی تصورات: نوڈز، کمپیوٹیشن گرافس
+- ✓ اپنا پہلا نوڈ کیسے تیار کریں
 
-## Next Steps
+## اگلے اقدامات
 
-In the next chapter, we'll dive deeper into ROS 2 architecture and explore the different communication patterns available.
+اگلے باب میں، ہم ROS 2 آرکیٹیکچر میں گہرائی سے جائیں گے اور دستیاب مختلف مواصلاتی نمونوں کو تلاش کریں گے۔
 
 ---
 
 **Image Placeholder**: [Diagram showing ROS 2 architecture with DDS layer]
 
-**Citation**: Macenski, S., et al. (2020). "Robot Operating System 2: Design, architecture, and uses in the wild." Science Robotics.
+**حوالہ**: Macenski, S., وغیرہ (2020). "روبوٹ آپریٹنگ سسٹم 2: ڈیزائن، معماری، اور جنگل میں استعمال." سائنس روبوٹکس.

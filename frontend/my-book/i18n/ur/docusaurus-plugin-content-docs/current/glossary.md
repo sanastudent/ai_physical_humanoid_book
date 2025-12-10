@@ -1,177 +1,161 @@
-<!--
-  Urdu Translation Placeholder
-  English source: glossary.md
+# لغت
 
-  TODO: Add Urdu translation below this comment.
--->
+## اے
 
-# [Urdu Translation Required]
+**ایکشن (ROS 2)**: طویل المدت کاموں کے لیے ایک مواصلاتی نمونہ جو انجام دہی کے دوران فیڈ بیک اور حتمی نتیجہ فراہم کرتا ہے۔
 
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
+**ایکچوایٹر**: ایک میکانیکل ڈیوائس جو توانائی کو حرکت میں تبدیل کرتی ہے، جیسے موتور یا سرvo.
 
----
+**AMCL (ایڈاپٹو مونٹی کارلو لوکلائزیشن)**: ذرات کے فلٹر کا استعمال کرتے ہوئے ایک احتمالی مقام کا تعین کرنے والا الگورتھم۔
 
-**Original English Content (for reference):**
+**خودکار نیویگیشن**: روبوٹ کی ایک ایسے ماحول میں حرکت کرنے کی صلاحیت جہاں انسانی مداخلت کی ضرورت نہ ہو۔
 
-# Glossary
+## بی
 
-## A
+**بیہیویئر ٹری**: روبوٹ کے رویے اور فیصلہ سازی کے منطق کو منظم کرنے کے لیے ایک سلسلہ وار ساخت۔
 
-**Action (ROS 2)**: A communication pattern for long-running tasks that provides feedback during execution and a final result.
+## سی
 
-**Actuator**: A mechanical device that converts energy into motion, such as motors or servos.
+**CUDA (کمپیوٹ یونیفائیڈ ڈیوائس آرکیٹیکچر)**: NVIDIA کا GPU پروگرامنگ کے لیے متوازی کمپیوٹنگ پلیٹ فارم۔
 
-**AMCL (Adaptive Monte Carlo Localization)**: A probabilistic localization algorithm using particle filters.
+**کارٹیشن اسپیس**: 3D مربوط نظام جو جسمانی خلائی میں مقامات اور سمت کی نمائندگی کرتا ہے۔
 
-**Autonomous Navigation**: The ability of a robot to move through an environment without human intervention.
+**کوگنیٹو پلاننگ**: کاموں، اہداف، اور کارروائیوں کی ترتیب کے بارے میں بلند سطحی استدلال۔
 
-## B
+**کمپیوٹر وژن**: AI کا ایک شعبہ جو کمپیوٹرز کو بصری معلومات کی تشریح کرنے کے قابل بنانے پر مرکوز ہے۔
 
-**Behavior Tree**: A hierarchical structure for organizing robot behaviors and decision-making logic.
+## ڈی
 
-## C
+**DDS (ڈیٹا ڈسٹری بیوشن سروس)**: ROS 2 کے ذریعہ حقیقی وقت کی مواصلات کے لیے استعمال ہونے والا وسط کار پروٹوکول۔
 
-**CUDA (Compute Unified Device Architecture)**: NVIDIA's parallel computing platform for GPU programming.
+**ڈیجیٹل ٹوئن**: تقلید اور جانچ کے لیے استعمال ہونے والا جسمانی سسٹم کا مجازی نمونہ۔
 
-**Cartesian Space**: 3D coordinate system representing positions and orientations in physical space.
+**DMP (ڈائنا مک موومنٹ پرائمریز)**: روبوٹ کی حرکات سیکھنے اور تیار کرنے کے لیے ایک ڈھانچہ۔
 
-**Cognitive Planning**: High-level reasoning about tasks, goals, and action sequences.
+## ای
 
-**Computer Vision**: Field of AI focused on enabling computers to interpret visual information.
+**ایم بوڈیڈ AI**: AI سسٹمز جو روبوٹک پلیٹ فارم کے ذریعے جسمانی دنیا کے ساتھ تعامل کرتے ہیں۔
 
-## D
+**اینڈ ایفیکٹر**: روبوٹک بازو کے اختتام پر موجود ڈیوائس (جیسے گرپر، ٹول)۔
 
-**DDS (Data Distribution Service)**: Middleware protocol used by ROS 2 for real-time communication.
+**EKF (ایکس ٹینڈیڈ کلمین فلٹر)**: شور میں پیمائش سے سسٹم کی حالت کا تخمینہ لگانے کا الگورتھم۔
 
-**Digital Twin**: A virtual replica of a physical system used for simulation and testing.
+## ایف
 
-**DMP (Dynamic Movement Primitives)**: A framework for learning and generating robot movements.
+**فرورڈ کنیمیٹکس**: مشترکہ اینگلوں سے اینڈ ایفیکٹر کا مقام حساب۔
 
-## E
+**بنیادی ماڈل**: بڑا پیش از تربیت شدہ AI ماڈل جو مختلف کاموں کے لیے ایڈاپٹ کیا جا سکتا ہے۔
 
-**Embodied AI**: AI systems that interact with the physical world through robotic platforms.
+## جی
 
-**End Effector**: The device at the end of a robotic arm (e.g., gripper, tool).
+**گزیبو**: درست فزکس کے ساتھ 3D روبوٹ سیمیولیٹر، اوپن سورس۔
 
-**EKF (Extended Kalman Filter)**: Algorithm for estimating system state from noisy measurements.
+**GPU (گرافکس پروسیسنگ یونٹ)**: متوازی حساب کے لیے خصوصی پروسیسر، AI اور روبوٹکس میں استعمال ہوتا ہے۔
 
-## F
+**گریس پلاننگ**: چیز کو ہتھیانے کے لیے بہترین گرپر کے مقامات اور قوتوں کا تعین۔
 
-**Forward Kinematics**: Computing end-effector position from joint angles.
+## آئی
 
-**Foundation Model**: Large pre-trained AI model that can be adapted to various tasks.
+**IMU (انرٹیل میزورمینٹ یونٹ)**: ایک سینسر جو تیزی اور گردش کی پیمائش کرتا ہے۔
 
-## G
+**انورس کنیمیٹکس**: مطلوبہ اینڈ ایفیکٹر کا مقام حاصل کرنے کے لیے مشترکہ اینگلوں کا حساب۔
 
-**Gazebo**: Open-source 3D robot simulator with accurate physics.
+**ایزیک سیم**: NVIDIA کا اومنی ورس پر مبنی روبوٹ سیمیولیشن پلیٹ فارم۔
 
-**GPU (Graphics Processing Unit)**: Specialized processor for parallel computations, used in AI and robotics.
+## جے
 
-**Grasp Planning**: Determining optimal gripper positions and forces for object manipulation.
+**جوئنٹ اسپیس**: مشترکہ اینگلوں کا استعمال کرتے ہوئے روبوٹ کی ترتیب کی نمائندگی۔
 
-## I
+## کے
 
-**IMU (Inertial Measurement Unit)**: Sensor measuring acceleration and rotation.
+**کنیمیٹکس**: قوتوں کو مدنظر نہ رکھتے ہوئے حرکت کا مطالعہ۔
 
-**Inverse Kinematics**: Computing joint angles needed to reach a desired end-effector position.
+**KITTI ڈیٹا سیٹ**: خودکار ڈرائیونگ اور کمپیوٹر وژن کے لیے معیاری ڈیٹا سیٹ۔
 
-**Isaac Sim**: NVIDIA's robot simulation platform built on Omniverse.
+## ایل
 
-## J
+**LiDAR (لائٹ ڈیٹیکشن اینڈ رینجنگ)**: ایک سینسر جو لیزر پلسز کا استعمال کرتے ہوئے فاصلے کی پیمائش کرتا ہے۔
 
-**Joint Space**: Representation of robot configuration using joint angles.
+**لیٹنسی**: ایک سسٹم میں ان پٹ اور آؤٹ پٹ کے درمیان وقت کی دیری۔
 
-## K
+## ایم
 
-**Kinematics**: Study of motion without considering forces.
+**موو اِٹ**: ROS کے لیے موشن پلاننگ فریم ورک۔
 
-**KITTI Dataset**: Benchmark dataset for autonomous driving and computer vision.
+**ملٹی موڈل لرننگ**: AI جو متعدد اقسام کے ڈیٹا (وژن، زبان، وغیرہ) کو پروسیس کرتا ہے۔
 
-## L
+## این
 
-**LiDAR (Light Detection and Ranging)**: Sensor that measures distances using laser pulses.
+**Nav2 (نیویگیشن 2)**: خودکار موبائل روبوٹس کے لیے ROS 2 نیویگیشن اسٹیک۔
 
-**Latency**: Time delay between input and output in a system.
+**نود (ROS)**: آزادانہ عمل جو حساب کاری انجام دیتا ہے۔
 
-## M
+## او
 
-**MoveIt**: Motion planning framework for ROS.
+**آکوپنسی گرڈ**: ماحول کی 2D نمائندگی جو خالی اور مکمل جگہ دکھاتی ہے۔
 
-**Multimodal Learning**: AI that processes multiple types of data (vision, language, etc.).
+**اودومیٹری**: سینسر ڈیٹا سے مقام کی تبدیلی کا تخمینہ۔
 
-## N
+**اومنی ورس**: NVIDIA کا 3D سیمیولیشن اور تعاون کے لیے پلیٹ فارم۔
 
-**Nav2 (Navigation 2)**: ROS 2 navigation stack for autonomous mobile robots.
+## پی
 
-**Node (ROS)**: Independent process that performs computation.
+**پاتھ پلاننگ**: شروع اور ختم کے مقامات کے درمیان جھٹکوں سے پاک راستے تلاش کرنا۔
 
-## O
+**پریسیپشن پائپ لائن**: سینسر ڈیٹا کو معنی آمیز سمجھ میں تبدیل کرنے والے پروسیسنگ اسٹیپس کی سیریز۔
 
-**Occupancy Grid**: 2D representation of environment showing free and occupied space.
+**پوائنٹ کلاؤڈ**: خلاء میں سطحوں کی نمائندگی کرنے والے 3D پوائنٹس کا مجموعہ۔
 
-**Odometry**: Estimating position change from sensor data.
+**پبلشر (ROS)**: ایک نوڈ جو کسی ٹاپک پر پیغام بھیجتا ہے۔
 
-**Omniverse**: NVIDIA's platform for 3D simulation and collaboration.
+## کیو
 
-## P
+**QoS (کوالٹی آف سروس)**: ROS 2 میں پیغام کی ترسیل کی قابل اعتمادی کو کنٹرول کرنے والی ترتیبات۔
 
-**Path Planning**: Finding collision-free paths from start to goal positions.
+## آر
 
-**Perception Pipeline**: Series of processing steps converting sensor data to semantic understanding.
+**RAG (ری ٹریول اینہانسڈ جنریشن)**: بہتر جوابات کے لیے بازیافت اور تیاری کو جوڑنے والا AI ٹیکنک۔
 
-**Point Cloud**: Set of 3D points representing surfaces in space.
+**ROS 2 (روبوٹ آپریٹنگ سسٹم 2)**: روبوٹ سافٹ ویئر لکھنے کا ڈھانچہ۔
 
-**Publisher (ROS)**: Node that sends messages to a topic.
+**RVIZ**: ROS کے لیے 3D وژولائزیشن ٹول۔
 
-## Q
+## ایس
 
-**QoS (Quality of Service)**: Settings controlling message delivery reliability in ROS 2.
+**SLAM (سیمٹینئس لوکلائزیشن اینڈ میپنگ)**: مقام کی نگرانی کرتے ہوئے ایک نقشہ تیار کرنا۔
 
-## R
+**سینسر فیوژن**: بہتر تخمینوں کے لیے متعدد سینسرز کے ڈیٹا کو جوڑنا۔
 
-**RAG (Retrieval-Augmented Generation)**: AI technique combining retrieval and generation for better responses.
+**سروس (ROS)**: درخواست-جواب مواصلاتی نمونہ۔
 
-**ROS 2 (Robot Operating System 2)**: Framework for writing robot software.
+**سیم ٹو ریل ٹرانسفر**: تقلید میں سیکھی گئی پالیسیوں کو حقیقی روبوٹس پر لاگو کرنا۔
 
-**RVIZ**: 3D visualization tool for ROS.
+**سبسکرائبر (ROS)**: ایک نوڈ جو کسی ٹاپک سے پیغامات وصول کرتا ہے۔
 
-## S
+## ٹی
 
-**SLAM (Simultaneous Localization and Mapping)**: Building a map while tracking position.
+**TF2 (ٹرانسفارم لائبریری 2)**: ROS 2 لائبریری جو مربوط فریموں کی نگرانی کرتی ہے۔
 
-**Sensor Fusion**: Combining data from multiple sensors for better estimates.
+**ٹاپک (ROS)**: نوڈز کے درمیان پیغامات تبدیل کرنے کے لیے نامزد بس۔
 
-**Service (ROS)**: Request-response communication pattern.
+**ٹریجیکٹری**: وقت کے لحاظ سے پیرامیٹرائزڈ راستہ جو مقام، رفتار، اور تیزی دکھاتا ہے۔
 
-**Sim-to-Real Transfer**: Applying policies learned in simulation to real robots.
+## یو
 
-**Subscriber (ROS)**: Node that receives messages from a topic.
+**URDF (یونیفائیڈ روبوٹ ڈسکرپشن فارمیٹ)**: XML فارمیٹ جو روبوٹ کی جیومیٹری اور کنیمیٹکس کی وضاحت کرتا ہے۔
 
-## T
+**یونیٹی**: گیم انجن جو روبوٹک سیمیولیشن اور ڈیجیٹل ٹوئنز کے لیے استعمال ہوتا ہے۔
 
-**TF2 (Transform Library 2)**: ROS 2 library for tracking coordinate frames.
+## وی
 
-**Topic (ROS)**: Named bus for exchanging messages between nodes.
+**VLA (وژن-زبان-ایکشن)**: ماڈلز جو بصری تاثر، زبان کی سمجھ، اور کارروائی کی تیاری کو یکجا کرتے ہیں۔
 
-**Trajectory**: Time-parameterized path showing position, velocity, and acceleration.
+**وژوئل سر ووں**: روبوٹ موشن کو کنٹرول کرنے کے لیے بصری فیڈ بیک کا استعمال۔
 
-## U
+## ایکس
 
-**URDF (Unified Robot Description Format)**: XML format describing robot geometry and kinematics.
+**XACRO**: پیرامیٹرائزڈ URDF فائلیں تیار کرنے کے لیے XML میکرو زبان۔
 
-**Unity**: Game engine used for robotic simulation and digital twins.
+## زیڈ
 
-## V
-
-**VLA (Vision-Language-Action)**: Models integrating visual perception, language understanding, and action generation.
-
-**Visual Servoing**: Using visual feedback to control robot motion.
-
-## X
-
-**XACRO**: XML macro language for creating parameterized URDF files.
-
-## Z
-
-**Zero-Shot Learning**: AI model performing tasks without task-specific training.
+**زیرو-شاٹ لرننگ**: AI ماڈل جو کام کے مطابق تربیت کے بغیر کام انجام دیتا ہے۔

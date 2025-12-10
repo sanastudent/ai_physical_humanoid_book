@@ -1,76 +1,60 @@
-<!--
-  Urdu Translation Placeholder
-  English source: summary.md
+# خلاصہ
 
-  TODO: Add Urdu translation below this comment.
--->
+## کتاب کا جائزہ
 
-# [Urdu Translation Required]
+یہ کتاب **جسمانی مصنوعی ذہانت** کا جامع تعارف فراہم کرتی ہے - مصنوعی ذہانت کے سسٹمز جو روبوٹک پلیٹ فارم کے ذریعے جسمانی دنیا کے ساتھ تعامل کرتے ہیں۔
 
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
+## اہم نکات
 
----
+### ROS 2 کے بنیادیات
+- **اہم تصورات**: نوڈز، ٹاپکس، سروسز، اور ایکشنز کو سمجھنا
+- **مواصلاتی نمونے**: پبلشر-سبسکرائبر، درخواست-جواب، اور ہدف پر مبنی تعاملات
+- **بہترین طریقے**: قابل توسیع، قابل برقرار رکھنے والے روبوٹک سسٹمز تیار کرنا
+- **حقیقی دنیا کے اطلاقات**: خودکار نیویگیشن، مینویولیشن، اور متعدد روبوٹس کی coordination
 
-**Original English Content (for reference):**
+### ڈیجیٹل ٹوئن ٹیکنالوجی
+- **سیمیولیشن فریم ورکس**: روبوٹک سیمیولیشن کے لیے گزیبو اور یونیٹی کا مastery حاصل کرنا
+- **فزکس انجن**: حقیقی دنیا کی متحرکات کی درست ماڈلنگ
+- **سینسر سیمیولیشن**: تربیت اور جانچ کے لیے حقیقی سینسر ڈیٹا تیار کرنا
+- **سیم-ٹو-ریل ٹرانسفر**: سیمیولیشن اور جسمانی تعینات کے درمیان فاصلہ پر قابو پانا
 
-# Summary
+### NVIDIA ایزیک پلیٹ فارم
+- **GPU-ایکسلریٹڈ روبوٹکس**: حقیقی وقت کی کارکردگی کے لیے CUDA کا فائدہ اٹھانا
+- **تاثر پائپ لائنز**: اشیاء کا پتہ لگانا، ٹریکنگ، اور منظر کی سمجھ
+- **ایزیک SDK & سیم**: AI-پاورڈر روبوٹکس کے لیے مکمل ایکو سسٹم
+- **ایج ڈیپلومنٹ**: روبوٹک ہارڈ ویئر پر AI ماڈلز چلانا
 
-## Book Overview
+### وژن-زبان-ایکشن ماڈلز
+- **ملٹی موڈل سمجھ**: وژن، زبان، اور ایکشن سپیس کو یکجا کرنا
+- **قدرتی زبان کنٹرول**: انسانی زبان کے ساتھ روبوٹس کو حکم دینا
+- **کوگنیٹو پلاننگ**: بلند سطحی استدلال اور کام کی تقسیم
+- **بنیادی ماڈلز**: روبوٹکس کے لیے پیش از تربیت شدہ ماڈلز کا فائدہ اٹھانا
 
-This book provides a comprehensive introduction to **Embodied AI** - artificial intelligence systems that interact with the physical world through robotic platforms.
+## آگے کا راستہ
 
-## Key Takeaways
+جسمانی مصنوعی ذہانت متعدد مضامین کا اجتماع ہے:
 
-### ROS 2 Fundamentals
-- **Core Concepts**: Understanding nodes, topics, services, and actions
-- **Communication Patterns**: Publisher-subscriber, request-response, and goal-based interactions
-- **Best Practices**: Building scalable, maintainable robotic systems
-- **Real-World Applications**: Autonomous navigation, manipulation, and multi-robot coordination
+1. **کمپیوٹر سائنس**: الخوارزمی، ڈیٹا سٹرکچر، اور سافٹ ویئر انجینئرنگ
+2. **مصنوعی ذہانت**: مشین لرننگ، کمپیوٹر وژن، اور قدرتی زبان کی پروسیسنگ
+3. **روبوٹکس**: کنیمیٹکس، متحرکات، کنٹرول تھیوری، اور سینسر انضمام
+4. **سسٹم انجینئرنگ**: انضمام، جانچ، اور بڑے پیمانے پر تعینات
 
-### Digital Twin Technology
-- **Simulation Frameworks**: Mastering Gazebo and Unity for robotic simulation
-- **Physics Engines**: Accurate modeling of real-world dynamics
-- **Sensor Simulation**: Creating realistic sensor data for training and testing
-- **Sim-to-Real Transfer**: Bridging the gap between simulation and physical deployment
+جیسے جیسے آپ اپنا سفر جاری رکھیں:
 
-### NVIDIA Isaac Platform
-- **GPU-Accelerated Robotics**: Leveraging CUDA for real-time performance
-- **Perception Pipelines**: Object detection, tracking, and scene understanding
-- **Isaac SDK & Sim**: Complete ecosystem for AI-powered robotics
-- **Edge Deployment**: Running AI models on robotic hardware
+- **تجربہ کریں**: منصوبے تیار کریں، غلطیاں کریں، اور ان سے سیکھیں
+- **Contributions دیں**: اوپن سورس روبوٹکس کمیونٹی میں شامل ہوں
+- **موجودہ رہیں**: جسمانی مصنوعی ذہانت میں تحقیقی ترقیات کو دیکھیں
+- **ہولسٹک طور پر سوچیں**: حفاظت، اخلاق، اور معاشرتی اثر کو مدنظر رکھیں
 
-### Vision-Language-Action Models
-- **Multimodal Understanding**: Integrating vision, language, and action spaces
-- **Natural Language Control**: Commanding robots with human language
-- **Cognitive Planning**: High-level reasoning and task decomposition
-- **Foundation Models**: Leveraging pre-trained models for robotics
+## مسلسل سیکھنے کے وسائل
 
-## The Path Forward
+- **ROS 2 دستاویزات**: [docs.ros.org](https://docs.ros.org)
+- **NVIDIA ایزیک**: [developer.nvidia.com/isaac](https://developer.nvidia.com/isaac)
+- **تحقیقی اوراق**: arXiv روبوٹکس اور AI سیکشنز
+- **کمیونٹیز**: ROS ڈسکورس، روبوٹکس سب ریڈیٹس، ڈسکارڈ سرورز
 
-Embodied AI represents the convergence of multiple disciplines:
+## خاتمہ
 
-1. **Computer Science**: Algorithms, data structures, and software engineering
-2. **Artificial Intelligence**: Machine learning, computer vision, and natural language processing
-3. **Robotics**: Kinematics, dynamics, control theory, and sensor integration
-4. **Systems Engineering**: Integration, testing, and deployment at scale
+جسمانی مصنوعی ذہانت کا میدان تیزی سے تبدیل ہو رہا ہے۔ اس کتاب میں شامل مہارتوں اور تصورات اسمارٹ روبوٹک سسٹمز تیار کرنے کے لیے مضبوط بنیاد فراہم کرتے ہیں۔ چاہے آپ خودکار گاڑیاں، گودام روبوٹس، یا گھریلو معاونین تیار کر رہے ہوں، اصول وہی رہتے ہیں: دنیا کو درست طور پر سمجھیں، اس کے بارے میں اسمارٹی سے استدلال کریں، اور محفوظ اور مؤثر طریقے سے کام کریں۔
 
-As you continue your journey:
-
-- **Experiment**: Build projects, make mistakes, and learn from them
-- **Contribute**: Join the open-source robotics community
-- **Stay Current**: Follow research developments in embodied AI
-- **Think Holistically**: Consider safety, ethics, and societal impact
-
-## Resources for Continued Learning
-
-- **ROS 2 Documentation**: [docs.ros.org](https://docs.ros.org)
-- **NVIDIA Isaac**: [developer.nvidia.com/isaac](https://developer.nvidia.com/isaac)
-- **Research Papers**: arXiv robotics and AI sections
-- **Communities**: ROS Discourse, robotics subreddits, Discord servers
-
-## Conclusion
-
-The field of embodied AI is rapidly evolving. The skills and concepts covered in this book provide a strong foundation for building intelligent robotic systems. Whether you're developing autonomous vehicles, warehouse robots, or household assistants, the principles remain the same: perceive the world accurately, reason about it intelligently, and act safely and effectively.
-
-Thank you for reading, and best of luck on your embodied AI journey!
+پڑھنے کے لیے شکریہ، اور آپ کے جسمانی AI کے سفر پر بہترین مLuck!

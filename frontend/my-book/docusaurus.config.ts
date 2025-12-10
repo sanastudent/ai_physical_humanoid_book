@@ -35,6 +35,10 @@ const config: Config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ur'],
+    localeConfigs: {
+      en: { label: 'English' },
+      ur: { label: 'اردو' },
+    },
   },
 
   presets: [
@@ -88,6 +92,10 @@ const config: Config = {
           sidebarId: 'bookSidebar',
           position: 'left',
           label: 'Book',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
         },
         {
           href: 'https://github.com/your-github-username/book', // TODO: Replace with your actual GitHub username

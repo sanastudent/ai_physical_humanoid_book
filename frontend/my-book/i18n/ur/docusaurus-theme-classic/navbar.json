@@ -14,5 +14,9 @@
   "item.label.GitHub": {
     "message": "GitHub",
     "description": "Navbar item with label GitHub"
+  },
+  "localeDropdown.label": {
+    "message": "زبان تبدیل کریں",
+    "description": "The label of the locale dropdown in the navbar"
   }
 }
