@@ -1,0 +1,590 @@
+openapi: 3.0.3
+info:
+  title: AI Book RAG API - Health Check Endpoints
+  description: |
+    Health check and readiness verification endpoints for the AI-Driven Book RAG system.
+
+    These endpoints allow system administrators and monitoring tools to verify that all
+    critical components (backend service, Qdrant vector database, embeddings service) are
+    operational and properly configured.
+
+    **Health Check Strategy**:
+    - `/health` - Liveness probe (basic service availability)
+    - `/health/ready` - Readiness probe (all dependencies healthy)
+    - `/health/{component}` - Component-specific health checks
+    - `/health/test/end-to-end` - Comprehensive end-to-end validation
+  version: 1.0.0
+  contact:
+    name: AI Book RAG API Support
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server (replace with actual URL)
+
+tags:
+  - name: Health
+    description: System health and readiness endpoints
+
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Liveness health check
+      description: |
+        Basic liveness check that verifies the backend service is running.
+        Returns 200 OK if the service is alive, regardless of dependency status.
+
+        This endpoint is designed for Kubernetes liveness probes or similar monitoring.
+      operationId: getLivenessHealth
+      responses:
+        '200':
+          description: Service is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResult'
+              example:
+                status: healthy
+                timestamp: '2025-12-08T10:30:00Z'
+                version: '1.0.0'
+                components:
+                  - name: backend
+                    status: healthy
+                    response_time_ms: 2
+                    message: Backend service operational
+                total_response_time_ms: 2
+                errors: []
+
+  /health/ready:
+    get:
+      tags:
+        - Health
+      summary: Readiness health check
+      description: |
+        Comprehensive readiness check that verifies all system dependencies are healthy.
+        Returns 200 OK only if ALL components (backend, Qdrant, embeddings) are operational.
+        Returns 503 Service Unavailable if any critical component is unhealthy.
+
+        This endpoint is designed for Kubernetes readiness probes or load balancer health checks.
+      operationId: getReadinessHealth
+      responses:
+        '200':
+          description: All components healthy - ready to serve traffic
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResult'
+              example:
+                status: healthy
+                timestamp: '2025-12-08T10:30:00Z'
+                version: '1.0.0'
+                components:
+                  - name: backend
+                    status: healthy
+                    response_time_ms: 2
+                    message: Backend service operational
+                  - name: qdrant
+                    status: healthy
+                    response_time_ms: 45
+                    message: Qdrant connection successful
+                    metadata:
+                      collections:
+                        - book_embeddings
+                      version: '1.7.3'
+                  - name: embeddings
+                    status: healthy
+                    response_time_ms: 120
+                    message: Embeddings service operational
+                    metadata:
+                      provider: anthropic
+                      dimensions: 1024
+                total_response_time_ms: 167
+                errors: []
+        '503':
+          description: One or more components unhealthy - not ready to serve traffic
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResult'
+              example:
+                status: unhealthy
+                timestamp: '2025-12-08T10:30:00Z'
+                version: '1.0.0'
+                components:
+                  - name: backend
+                    status: healthy
+                    response_time_ms: 2
+                    message: Backend service operational
+                  - name: qdrant
+                    status: unhealthy
+                    response_time_ms: null
+                    message: Qdrant connection failed
+                    error: 'Connection refused: localhost:6333'
+                    metadata: {}
+                  - name: embeddings
+                    status: healthy
+                    response_time_ms: 115
+                    message: Embeddings service operational
+                    metadata:
+                      provider: anthropic
+                      dimensions: 1024
+                total_response_time_ms: 117
+                errors:
+                  - 'Qdrant connection failed: Connection refused: localhost:6333'
+
+  /health/backend:
+    get:
+      tags:
+        - Health
+      summary: Backend service health
+      description: Checks if the backend service is running and accepting requests
+      operationId: getBackendHealth
+      responses:
+        '200':
+          description: Backend service health status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentStatus'
+              example:
+                name: backend
+                status: healthy
+                response_time_ms: 2
+                message: Backend service operational
+                error: null
+                metadata:
+                  version: '1.0.0'
+                  uptime_seconds: 3600
+
+  /health/qdrant:
+    get:
+      tags:
+        - Health
+      summary: Qdrant connection health
+      description: |
+        Verifies Qdrant vector database connection and validates collection schema.
+        Checks:
+        - Connection to Qdrant instance
+        - Collection existence
+        - Collection schema matches expected configuration
+      operationId: getQdrantHealth
+      responses:
+        '200':
+          description: Qdrant health status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentStatus'
+              examples:
+                healthy:
+                  summary: Healthy Qdrant connection
+                  value:
+                    name: qdrant
+                    status: healthy
+                    response_time_ms: 45
+                    message: Qdrant connection successful
+                    error: null
+                    metadata:
+                      endpoint: localhost:6333
+                      connected: true
+                      collections:
+                        - book_embeddings
+                        - book_embeddings_test
+                      version: '1.7.3'
+                      collection_schema:
+                        name: book_embeddings
+                        vector_size: 1536
+                        distance: Cosine
+                        points_count: 1247
+                unhealthy:
+                  summary: Unhealthy Qdrant connection
+                  value:
+                    name: qdrant
+                    status: unhealthy
+                    response_time_ms: null
+                    message: Qdrant connection failed
+                    error: 'Connection refused: localhost:6333'
+                    metadata:
+                      endpoint: localhost:6333
+                      connected: false
+
+  /health/embeddings:
+    get:
+      tags:
+        - Health
+      summary: Embeddings service health
+      description: |
+        Validates embeddings service availability and correctness.
+        Generates a test embedding and verifies dimensions match expected configuration.
+      operationId: getEmbeddingsHealth
+      responses:
+        '200':
+          description: Embeddings service health status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentStatus'
+              examples:
+                healthy:
+                  summary: Healthy embeddings service
+                  value:
+                    name: embeddings
+                    status: healthy
+                    response_time_ms: 120
+                    message: Embeddings service operational
+                    error: null
+                    metadata:
+                      provider: anthropic
+                      available: true
+                      dimensions: 1024
+                      test_embedding_generated: true
+                unhealthy:
+                  summary: Unhealthy embeddings service
+                  value:
+                    name: embeddings
+                    status: unhealthy
+                    response_time_ms: null
+                    message: Embeddings service unavailable
+                    error: 'API authentication failed: Invalid API key'
+                    metadata:
+                      provider: anthropic
+                      available: false
+                      test_embedding_generated: false
+                      error: 'API authentication failed: Invalid API key'
+
+  /health/config:
+    get:
+      tags:
+        - Health
+      summary: Configuration validation
+      description: |
+        Validates all required configuration parameters are present and valid.
+        Checks environment variables, connection strings, and API keys.
+      operationId: getConfigHealth
+      responses:
+        '200':
+          description: Configuration validation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationStatus'
+              examples:
+                valid:
+                  summary: Valid configuration
+                  value:
+                    valid: true
+                    missing_required: []
+                    invalid_values: {}
+                    warnings:
+                      - GOOGLE_API_KEY not set - Google embeddings unavailable
+                    validated_at: '2025-12-08T10:30:00Z'
+                invalid:
+                  summary: Invalid configuration
+                  value:
+                    valid: false
+                    missing_required:
+                      - QDRANT_URL
+                      - ANTHROPIC_API_KEY
+                    invalid_values:
+                      HEALTH_CHECK_TIMEOUT: 'Value 500 exceeds maximum 300'
+                    warnings: []
+                    validated_at: '2025-12-08T10:30:00Z'
+
+  /health/test/end-to-end:
+    post:
+      tags:
+        - Health
+      summary: Run end-to-end test workflow
+      description: |
+        Executes a comprehensive end-to-end test workflow that validates the entire pipeline:
+        1. Creates a test collection in Qdrant
+        2. Generates embeddings for test documents
+        3. Stores vectors in Qdrant
+        4. Retrieves vectors via similarity search
+        5. Cleans up test collection
+
+        This test is non-destructive and uses a separate test collection.
+      operationId: runEndToEndTest
+      requestBody:
+        description: Test workflow parameters
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndToEndTestRequest'
+            example:
+              num_documents: 10
+              cleanup_on_failure: true
+              test_collection_name: null
+      responses:
+        '200':
+          description: Test workflow completed (may contain errors)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestWorkflowResult'
+              examples:
+                success:
+                  summary: Successful workflow
+                  value:
+                    success: true
+                    total_duration_ms: 8742
+                    documents_processed: 10
+                    steps:
+                      - step_name: create_test_collection
+                        status: healthy
+                        duration_ms: 234
+                        details: Test collection created successfully
+                      - step_name: generate_embeddings
+                        status: healthy
+                        duration_ms: 3450
+                        details: 10 embeddings generated
+                      - step_name: store_vectors
+                        status: healthy
+                        duration_ms: 1028
+                        details: 10 vectors stored in Qdrant
+                      - step_name: retrieve_vectors
+                        status: healthy
+                        duration_ms: 245
+                        details: Search returned 5 results
+                      - step_name: cleanup
+                        status: healthy
+                        duration_ms: 185
+                        details: Test collection deleted
+                    errors: []
+                    executed_at: '2025-12-08T10:30:00Z'
+                failure:
+                  summary: Failed workflow
+                  value:
+                    success: false
+                    total_duration_ms: 3892
+                    documents_processed: 5
+                    steps:
+                      - step_name: create_test_collection
+                        status: healthy
+                        duration_ms: 234
+                        details: Test collection created successfully
+                      - step_name: generate_embeddings
+                        status: unhealthy
+                        duration_ms: 3450
+                        details: 'API rate limit exceeded: anthropic.com'
+                      - step_name: cleanup
+                        status: healthy
+                        duration_ms: 208
+                        details: Test collection deleted
+                    errors:
+                      - 'Embeddings generation failed: API rate limit exceeded'
+                    executed_at: '2025-12-08T10:30:00Z'
+
+components:
+  schemas:
+    HealthStatus:
+      type: string
+      enum:
+        - healthy
+        - degraded
+        - unhealthy
+      description: Health status enumeration
+
+    ComponentStatus:
+      type: object
+      required:
+        - name
+        - status
+      properties:
+        name:
+          type: string
+          description: Component name
+          enum:
+            - backend
+            - qdrant
+            - embeddings
+            - config
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        response_time_ms:
+          type: integer
+          nullable: true
+          description: Component response time in milliseconds
+          example: 45
+        message:
+          type: string
+          nullable: true
+          description: Human-readable status message
+          example: Qdrant connection successful
+        error:
+          type: string
+          nullable: true
+          description: Error message if unhealthy
+          example: 'Connection refused: localhost:6333'
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Component-specific metadata
+          example:
+            collections:
+              - book_embeddings
+            version: '1.7.3'
+
+    HealthCheckResult:
+      type: object
+      required:
+        - status
+        - timestamp
+        - version
+        - components
+        - errors
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        timestamp:
+          type: string
+          format: date-time
+          description: Health check timestamp (UTC)
+          example: '2025-12-08T10:30:00Z'
+        version:
+          type: string
+          description: API version
+          example: '1.0.0'
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentStatus'
+          description: Individual component statuses
+        total_response_time_ms:
+          type: integer
+          nullable: true
+          description: Total health check duration
+          example: 167
+        errors:
+          type: array
+          items:
+            type: string
+          description: List of error messages
+          example: []
+
+    ConfigurationStatus:
+      type: object
+      required:
+        - valid
+        - missing_required
+        - invalid_values
+        - warnings
+        - validated_at
+      properties:
+        valid:
+          type: boolean
+          description: Overall configuration validity
+          example: true
+        missing_required:
+          type: array
+          items:
+            type: string
+          description: Missing required parameters
+          example: []
+        invalid_values:
+          type: object
+          additionalProperties:
+            type: string
+          description: Invalid parameter values with reasons
+          example: {}
+        warnings:
+          type: array
+          items:
+            type: string
+          description: Configuration warnings
+          example:
+            - GOOGLE_API_KEY not set - Google embeddings unavailable
+        validated_at:
+          type: string
+          format: date-time
+          description: Validation timestamp
+          example: '2025-12-08T10:30:00Z'
+
+    TestWorkflowStep:
+      type: object
+      required:
+        - step_name
+        - status
+        - duration_ms
+      properties:
+        step_name:
+          type: string
+          description: Step name
+          example: create_test_collection
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        duration_ms:
+          type: integer
+          description: Step duration in milliseconds
+          example: 234
+        details:
+          type: string
+          nullable: true
+          description: Step details or error message
+          example: Test collection created successfully
+
+    TestWorkflowResult:
+      type: object
+      required:
+        - success
+        - total_duration_ms
+        - documents_processed
+        - steps
+        - errors
+        - executed_at
+      properties:
+        success:
+          type: boolean
+          description: Overall workflow success
+          example: true
+        total_duration_ms:
+          type: integer
+          description: Total workflow duration
+          example: 8742
+        documents_processed:
+          type: integer
+          description: Number of test documents processed
+          example: 10
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestWorkflowStep'
+          description: Individual workflow steps
+        errors:
+          type: array
+          items:
+            type: string
+          description: Workflow errors
+          example: []
+        executed_at:
+          type: string
+          format: date-time
+          description: Execution timestamp
+          example: '2025-12-08T10:30:00Z'
+
+    EndToEndTestRequest:
+      type: object
+      properties:
+        num_documents:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          description: Number of test documents to process
+          example: 10
+        cleanup_on_failure:
+          type: boolean
+          default: true
+          description: Whether to cleanup test collection on failure
+          example: true
+        test_collection_name:
+          type: string
+          nullable: true
+          description: Override default test collection name
+          example: null

@@ -102,19 +102,14 @@ class EmbeddingGenerator:
                 return [0.0] * 1536
 
         elif self.provider == "google":
-            # Use Google's embedding model
+            # Use Google's embedding model (768 dimensions)
             result = genai.embed_content(
                 model="models/embedding-001",
                 content=text,
                 task_type="retrieval_document"
             )
-            # Pad or truncate to 1536 dimensions
-            embedding = result['embedding']
-            if len(embedding) < 1536:
-                embedding.extend([0.0] * (1536 - len(embedding)))
-            else:
-                embedding = embedding[:1536]
-            return embedding
+            # Return native 768-dimensional embedding
+            return result['embedding']
         elif self.provider == "openai":
             # Use OpenAI's embedding API directly
             import openai
@@ -158,6 +153,21 @@ class EmbeddingGenerator:
                 })
 
         return all_embeddings
+
+    async def validate_embeddings_service(self) -> Dict[str, any]:
+        """Validate that the embeddings service is accessible and functional
+
+        Returns:
+            Dict containing validation status and metadata
+        """
+        test_text = "test"
+        embedding = self.generate_embedding(test_text)
+
+        return {
+            "provider": self.provider,
+            "vector_size": len(embedding),
+            "api_configured": True
+        }
 
 
 async def get_embedding(text: str) -> List[float]:

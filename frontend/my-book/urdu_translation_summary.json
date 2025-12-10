@@ -1,0 +1,180 @@
+{
+  "total_files": 29,
+  "files": [
+    {
+      "english_path": "glossary.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\glossary.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "intro.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\intro.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 1"
+    },
+    {
+      "english_path": "introduction.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\introduction.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "references.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\references.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "summary.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\summary.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module1-architecture.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module1-architecture.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module1-communication.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module1-communication.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module1-intro.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module1-intro.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module1-practice.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module1-practice.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module2-gazebo.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module2-gazebo.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module2-intro.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module2-intro.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module2-simtoreal.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module2-simtoreal.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module2-unity.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module2-unity.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module3-deployment.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module3-deployment.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module3-intro.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module3-intro.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module3-perception.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module3-perception.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module3-sdk.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module3-sdk.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module4-future.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module4-future.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module4-intro.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module4-intro.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module4-multimodal.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module4-multimodal.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "chapters\\module4-vla.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\chapters\\module4-vla.md",
+      "has_frontmatter": false,
+      "frontmatter": "none"
+    },
+    {
+      "english_path": "tutorial-basics\\congratulations.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-basics\\congratulations.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 6"
+    },
+    {
+      "english_path": "tutorial-basics\\create-a-blog-post.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-basics\\create-a-blog-post.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 3"
+    },
+    {
+      "english_path": "tutorial-basics\\create-a-document.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-basics\\create-a-document.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 2"
+    },
+    {
+      "english_path": "tutorial-basics\\create-a-page.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-basics\\create-a-page.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 1"
+    },
+    {
+      "english_path": "tutorial-basics\\deploy-your-site.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-basics\\deploy-your-site.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 5"
+    },
+    {
+      "english_path": "tutorial-extras\\manage-docs-versions.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-extras\\manage-docs-versions.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 1"
+    },
+    {
+      "english_path": "tutorial-extras\\translate-your-site.md",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-extras\\translate-your-site.md",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 2"
+    },
+    {
+      "english_path": "tutorial-basics\\markdown-features.mdx",
+      "urdu_path": "i18n\\ur\\docusaurus-plugin-content-docs\\current\\tutorial-basics\\markdown-features.mdx",
+      "has_frontmatter": true,
+      "frontmatter": "sidebar_position: 4"
+    }
+  ],
+  "timestamp": "C:\\Users\\User\\Desktop\\book\\frontend\\my-book"
+}

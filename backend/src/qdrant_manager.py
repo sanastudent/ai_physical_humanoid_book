@@ -57,7 +57,7 @@ class QdrantManager:
                     collection_name=self.collection_name,
                     vectors_config=models.VectorParams(
                         size=QdrantSchema.VECTOR_SIZE,
-                        distance=models.Distance(QdrantSchema.DISTANCE_METRIC.upper())
+                        distance=models.Distance.COSINE  # Use enum directly, not string
                     ),
                     on_disk_payload=True  # For better performance with large payloads
                 )
@@ -156,14 +156,53 @@ class QdrantManager:
             logger.error(f"Unexpected error deleting collection: {e}")
             raise
 
-    def health_check(self) -> bool:
-        """Check if Qdrant is accessible and responding"""
+    async def health_check(self) -> Dict[str, any]:
+        """Check if Qdrant is accessible and responding with detailed metadata
+
+        Returns:
+            Dict containing connection status and metadata
+        """
         try:
-            # Try to get collection list as a basic health check
-            self.client.get_collections()
-            return True
+            collections = self.client.get_collections()
+            collection_names = [col.name for col in collections.collections]
+
+            return {
+                "connected": True,
+                "collections": collection_names,
+                "collection_count": len(collection_names)
+            }
         except Exception as e:
             logger.error(f"Qdrant health check failed: {e}")
+            raise
+
+    async def verify_collection_schema(self) -> bool:
+        """Verify that the collection exists and has the correct schema
+
+        Returns:
+            True if collection exists with correct vector size and distance metric
+        """
+        try:
+            collection_info = self.client.get_collection(self.collection_name)
+
+            # Verify vector configuration
+            vector_config = collection_info.config.params.vectors
+            if vector_config.size != QdrantSchema.VECTOR_SIZE:
+                logger.error(
+                    f"Vector size mismatch: expected {QdrantSchema.VECTOR_SIZE}, "
+                    f"got {vector_config.size}"
+                )
+                return False
+
+            if vector_config.distance.name.lower() != QdrantSchema.DISTANCE_METRIC.lower():
+                logger.error(
+                    f"Distance metric mismatch: expected {QdrantSchema.DISTANCE_METRIC}, "
+                    f"got {vector_config.distance.name}"
+                )
+                return False
+
+            return True
+        except Exception as e:
+            logger.error(f"Collection schema verification failed: {e}")
             return False
 
     def get_collection_info(self):

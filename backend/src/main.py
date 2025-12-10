@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from typing import Dict
 import json
 
-from .schema import EmbedRequest, QueryRequest, QueryResponse
+from .schema import EmbedRequest, QueryRequest, QueryResponse, HealthStatus
 from .qdrant_manager import QdrantManager
 from .embed import EmbeddingGenerator
 from .rag import RAGEngine
@@ -18,6 +18,12 @@ from .agents.chapter_writer_agent import ChapterWriterAgent
 from .agents.rag_agent import RAGAgent
 from .agents.api_integration_agent import APIIntegrationAgent
 from .middleware.performance import PerformanceMiddleware, get_performance_stats, get_slow_requests, is_within_performance_threshold
+from .health.checks import (
+    check_backend_health,
+    check_qdrant_health,
+    check_embeddings_health,
+    aggregate_health_status
+)
 
 load_dotenv()
 
@@ -69,13 +75,61 @@ async def startup_event():
 
 
 @app.get("/health")
-async def health_check():
-    """Health check endpoint"""
+async def health_liveness():
+    """
+    Kubernetes-style liveness probe
+
+    Simple check that the application is running and responding.
+    Returns 200 if the service is alive, suitable for liveness checks.
+    """
+    status = await check_backend_health()
     return {
-        "status": "healthy",
+        "status": status.status.value,
         "service": "AI Book RAG API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "timestamp": status.metadata.get("timestamp") if status.metadata else None
     }
+
+
+@app.get("/health/ready")
+async def health_readiness():
+    """
+    Kubernetes-style readiness probe
+
+    Comprehensive health check of all dependencies (Qdrant, embeddings).
+    Returns 200 if ready to serve traffic, 503 if unhealthy.
+    """
+    result = await aggregate_health_status(
+        qdrant_manager=qdrant_manager,
+        embedding_generator=embedding_generator
+    )
+
+    # Return 503 if any component is unhealthy
+    if result.status == HealthStatus.UNHEALTHY:
+        raise HTTPException(status_code=503, detail="Service unavailable")
+
+    return result
+
+
+@app.get("/health/backend")
+async def health_backend():
+    """Backend service health check"""
+    status = await check_backend_health()
+    return status
+
+
+@app.get("/health/qdrant")
+async def health_qdrant():
+    """Qdrant vector database health check"""
+    status = await check_qdrant_health(qdrant_manager)
+    return status
+
+
+@app.get("/health/embeddings")
+async def health_embeddings():
+    """Embeddings service health check"""
+    status = await check_embeddings_health(embedding_generator)
+    return status
 
 
 @app.get("/performance")

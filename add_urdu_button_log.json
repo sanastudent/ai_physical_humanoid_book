@@ -1,0 +1,39 @@
+{
+  "summary": {
+    "successful": 29,
+    "errors": 0,
+    "total": 29
+  },
+  "successful_files": [
+    "frontend\\my-book\\docs\\glossary.md",
+    "frontend\\my-book\\docs\\intro.md",
+    "frontend\\my-book\\docs\\introduction.md",
+    "frontend\\my-book\\docs\\references.md",
+    "frontend\\my-book\\docs\\summary.md",
+    "frontend\\my-book\\docs\\chapters\\module1-architecture.md",
+    "frontend\\my-book\\docs\\chapters\\module1-communication.md",
+    "frontend\\my-book\\docs\\chapters\\module1-intro.md",
+    "frontend\\my-book\\docs\\chapters\\module1-practice.md",
+    "frontend\\my-book\\docs\\chapters\\module2-gazebo.md",
+    "frontend\\my-book\\docs\\chapters\\module2-intro.md",
+    "frontend\\my-book\\docs\\chapters\\module2-simtoreal.md",
+    "frontend\\my-book\\docs\\chapters\\module2-unity.md",
+    "frontend\\my-book\\docs\\chapters\\module3-deployment.md",
+    "frontend\\my-book\\docs\\chapters\\module3-intro.md",
+    "frontend\\my-book\\docs\\chapters\\module3-perception.md",
+    "frontend\\my-book\\docs\\chapters\\module3-sdk.md",
+    "frontend\\my-book\\docs\\chapters\\module4-future.md",
+    "frontend\\my-book\\docs\\chapters\\module4-intro.md",
+    "frontend\\my-book\\docs\\chapters\\module4-multimodal.md",
+    "frontend\\my-book\\docs\\chapters\\module4-vla.md",
+    "frontend\\my-book\\docs\\tutorial-basics\\congratulations.md",
+    "frontend\\my-book\\docs\\tutorial-basics\\create-a-blog-post.md",
+    "frontend\\my-book\\docs\\tutorial-basics\\create-a-document.md",
+    "frontend\\my-book\\docs\\tutorial-basics\\create-a-page.md",
+    "frontend\\my-book\\docs\\tutorial-basics\\deploy-your-site.md",
+    "frontend\\my-book\\docs\\tutorial-extras\\manage-docs-versions.md",
+    "frontend\\my-book\\docs\\tutorial-extras\\translate-your-site.md",
+    "frontend\\my-book\\docs\\tutorial-basics\\markdown-features.mdx"
+  ],
+  "error_files": []
+}
