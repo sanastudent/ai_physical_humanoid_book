@@ -20,3 +20,11 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+
+# Docusaurus
+.docusaurus/
+build/
+.cache-loader/
+
+# Vercel
+.vercel

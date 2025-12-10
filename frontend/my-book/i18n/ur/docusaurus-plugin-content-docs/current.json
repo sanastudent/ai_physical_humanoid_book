@@ -1,0 +1,22 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.bookSidebar.category.Module 1: ROS 2 Fundamentals": {
+    "message": "Module 1: ROS 2 Fundamentals",
+    "description": "The label for category 'Module 1: ROS 2 Fundamentals' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.Module 2: Digital Twin Technology": {
+    "message": "Module 2: Digital Twin Technology",
+    "description": "The label for category 'Module 2: Digital Twin Technology' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.Module 3: NVIDIA Isaac Platform": {
+    "message": "Module 3: NVIDIA Isaac Platform",
+    "description": "The label for category 'Module 3: NVIDIA Isaac Platform' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.Module 4: Vision-Language-Action Models": {
+    "message": "Module 4: Vision-Language-Action Models",
+    "description": "The label for category 'Module 4: Vision-Language-Action Models' in sidebar 'bookSidebar'"
+  }
+}

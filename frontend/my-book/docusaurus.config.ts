@@ -15,26 +15,26 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-username.github.io', // Replace with your GitHub username
+  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/book/',
+  // For Vercel deployment, use root path
+  baseUrl: '/',
   trailingSlash: false,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'your-username', // Replace with your GitHub username
+  organizationName: 'your-github-username', // TODO: Replace with your actual GitHub username
   projectName: 'book', // Usually your repo name.
   deploymentBranch: 'gh-pages',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: process.env.NODE_ENV === 'production' ? 'warn' : 'throw',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'ur'],
   },
 
   presets: [
@@ -90,7 +90,7 @@ const config: Config = {
           label: 'Book',
         },
         {
-          href: 'https://github.com/your-username/book',
+          href: 'https://github.com/your-github-username/book', // TODO: Replace with your actual GitHub username
           label: 'GitHub',
           position: 'right',
         },

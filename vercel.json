@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "buildCommand": "cd frontend/my-book && npm install && npm run build:clean",
+  "outputDirectory": "frontend/my-book/build",
+  "installCommand": "npm install --prefix frontend/my-book",
+  "framework": null,
+  "public": false,
+  "build": {
+    "env": {
+      "NODE_VERSION": "20"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
