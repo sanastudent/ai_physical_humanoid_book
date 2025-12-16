@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module4-vla.md
+# ماڈیول 4: Vision-Language-Action انٹیگریشن
 
-  TODO: Add Urdu translation below this comment.
--->
+VLA انٹیگریشن باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 4: Vision-Language-Action Integration
-
-Content for VLA integration chapter coming soon...
-
-This chapter will cover:
-- Natural language control
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- قدرتی زبان کا کنٹرول
 - Visual grounding
-- Action prediction
-- End-to-end systems
+- Action کی پیش گوئی
+- End-to-end سسٹمز

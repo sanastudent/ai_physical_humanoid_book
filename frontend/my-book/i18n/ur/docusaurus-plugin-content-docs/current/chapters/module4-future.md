@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module4-future.md
+# ماڈیول 4: Embodied AI کا مستقبل
 
-  TODO: Add Urdu translation below this comment.
--->
+Embodied AI کے مستقبل باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 4: Future of Embodied AI
-
-Content for future of embodied AI chapter coming soon...
-
-This chapter will cover:
-- Emerging trends
-- Research directions
-- Ethical considerations
-- Career opportunities in embodied AI
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- ابھرتے ہوئے رجحانات
+- تحقیق کی سمتیں
+- اخلاقی تحفظات
+- Embodied AI میں کیریئر کے مواقع

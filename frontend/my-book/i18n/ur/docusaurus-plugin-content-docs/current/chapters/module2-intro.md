@@ -1,66 +1,50 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module2-intro.md
+# ماڈیول 2: ڈیجیٹل ٹوئن ٹیکنالوجی کا تعارف
 
-  TODO: Add Urdu translation below this comment.
--->
+## ڈیجیٹل ٹوئن کیا ہے؟
 
-# [Urdu Translation Required]
+**ڈیجیٹل ٹوئن** ایک فزیکل سسٹم کی ورچوئل نقل ہے جو ریئل ٹائم میں اس کے رویے، حالت، اور خصوصیات کی عکاسی کرتی ہے۔ روبوٹکس میں، ڈیجیٹل ٹوئنز محفوظ ٹیسٹنگ، توثیق، اور تربیت کو فزیکل ہارڈویئر کو خطرے میں ڈالے بغیر ممکن بناتی ہیں۔
 
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
+## ڈیجیٹل ٹوئنز کے فوائد
 
----
+### لاگت میں کمی
+- فزیکل پروٹو ٹائپس کے بغیر الگورتھمز ٹیسٹ کریں
+- ڈیزائنز کو تیزی سے دہرائیں
+- ہارڈویئر کی خرابی کو کم کریں
 
-**Original English Content (for reference):**
+### حفاظت
+- خطرناک منظرناموں کی توثیق کریں
+- ایج کیسز ٹیسٹ کریں
+- کنٹرول شدہ ماحول میں AI کی تربیت کریں
 
-# Module 2: Introduction to Digital Twin Technology
+### قابل توسیع
+- روبوٹس کے فلیٹس کی سمیولیشن کریں
+- کثیر روبوٹ ہم آہنگی ٹیسٹ کریں
+- متوازی تجربات
 
-## What is a Digital Twin?
-
-A **Digital Twin** is a virtual replica of a physical system that mirrors its behavior, state, and properties in real-time. In robotics, digital twins enable safe testing, validation, and training without risking physical hardware.
-
-## Benefits of Digital Twins
-
-### Cost Reduction
-- Test algorithms without physical prototypes
-- Iterate designs quickly
-- Reduce hardware wear and tear
-
-### Safety
-- Validate dangerous scenarios
-- Test edge cases
-- Train AI in controlled environments
-
-### Scalability
-- Simulate fleets of robots
-- Test multi-robot coordination
-- Parallel experimentation
-
-## Simulation Platforms
+## سمیولیشن پلیٹ فارمز
 
 ### Gazebo
-Open-source 3D robot simulator with accurate physics, sensors, and ROS 2 integration.
+کھلے ذریعہ 3D روبوٹ سمیولیٹر جس میں درست فزکس، سینسرز، اور ROS 2 انٹیگریشن ہے۔
 
 ### Unity
-Game engine adapted for robotics simulation, offering photorealistic rendering and ML-Agents integration.
+گیم انجن جو روبوٹکس سمیولیشن کے لیے موافق ہے، فوٹو ریئلسٹک رینڈرنگ اور ML-Agents انٹیگریشن پیش کرتا ہے۔
 
 ### NVIDIA Isaac Sim
-GPU-accelerated simulation built on Omniverse, designed for AI and robotics.
+GPU ایکسلریٹڈ سمیولیشن جو Omniverse پر بنایا گیا ہے، AI اور روبوٹکس کے لیے ڈیزائن کیا گیا ہے۔
 
-## Key Concepts
+## کلیدی تصورات
 
-### Physics Engines
-Simulate real-world physics: gravity, friction, collisions, joint dynamics.
+### فزکس انجنز
+حقیقی دنیا کی فزکس کی سمیولیٹ کریں: کشش ثقل، رگڑ، ٹکراؤ، جوائنٹ ڈائنامکس۔
 
-### Sensor Simulation
-Replicate camera, LiDAR, IMU, and other sensor data with realistic noise.
+### سینسر سمیولیشن
+کیمرہ، LiDAR، IMU، اور دیگر سینسر ڈیٹا کو حقیقی شور کے ساتھ نقل کریں۔
 
-### Sim-to-Real Transfer
-Techniques to bridge the "reality gap" between simulation and physical deployment.
+### Sim-to-Real ٹرانسفر
+سمیولیشن اور فزیکل ڈیپلائمنٹ کے درمیان "حقیقت کے فرق" کو ختم کرنے کی تکنیکیں۔
 
-Next chapters will dive deep into Gazebo and Unity implementations.
+اگلے ابواب Gazebo اور Unity کے نفاذ میں گہرائی سے جائیں گے۔
 
 ---
 
-**Image Placeholder**: [Digital twin concept diagram]
+**Image Placeholder**: [ڈیجیٹل ٹوئن تصور ڈایاگرام]

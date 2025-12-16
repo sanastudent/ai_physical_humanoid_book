@@ -1,66 +1,50 @@
-<!--
-  Urdu Translation Placeholder
-  English source: introduction.md
+# تعارف
 
-  TODO: Add Urdu translation below this comment.
--->
+**Embodied AI: ذہین روبوٹک سسٹمز کی تعمیر** میں خوش آمدید!
 
-# [Urdu Translation Required]
+یہ جامع گائیڈ مصنوعی ذہانت، روبوٹکس، اور فزیکل سسٹمز کے جدید ترین انضمام کی کھوج کرتی ہے۔ آپ سیکھیں گے کہ کس طرح ذہین روبوٹ بنائے جائیں جو حقیقی دنیا میں ادراک، استدلال، اور عمل کر سکیں۔
 
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
+## آپ کیا سیکھیں گے
 
----
+یہ کتاب Embodied AI کے چار بڑے شعبوں کا احاطہ کرتی ہے:
 
-**Original English Content (for reference):**
+### ماڈیول 1: ROS 2 - روبوٹک اعصابی نظام
+Robot Operating System 2 (ROS 2) کی بنیادی باتیں سیکھیں، جو روبوٹک ایپلیکیشنز بنانے کے لیے صنعت کا معیاری فریم ورک ہے۔ نوڈز، ٹاپکس، سروسز، ایکشنز، اور تقسیم شدہ روبوٹک سسٹمز کی تعمیر کو سمجھیں۔
 
-# Introduction
+### ماڈیول 2: ڈیجیٹل ٹوئن ٹیکنالوجی
+Gazebo اور Unity استعمال کرتے ہوئے سمیولیشن ماحول کی کھوج کریں۔ محفوظ، کنٹرول شدہ ماحول میں ٹیسٹنگ، توثیق، اور AI ماڈلز کی تربیت کے لیے فزیکل روبوٹس کی درست ڈیجیٹل نقول بنانا سیکھیں۔
 
-Welcome to **Embodied AI: Building Intelligent Robotic Systems**!
+### ماڈیول 3: NVIDIA Isaac پلیٹ فارم
+AI سے چلنے والے ادراک اور کنٹرول کے لیے NVIDIA کے Isaac پلیٹ فارم میں غوطہ لگائیں۔ GPU ایکسلریٹڈ روبوٹکس، کمپیوٹر ویژن پائپ لائنز، اور ریئل ٹائم فیصلہ سازی کے نظام کے بارے میں سیکھیں۔
 
-This comprehensive guide explores the cutting-edge intersection of artificial intelligence, robotics, and physical systems. You'll learn how to build intelligent robots that can perceive, reason, and act in the real world.
+### ماڈیول 4: Vision-Language-Action (VLA) ماڈلز
+VLA ماڈلز کے ساتھ روبوٹک انٹیلیجنس کے مستقبل کو دریافت کریں۔ قدرتی زبان کی سمجھ کو بصری ادراک اور جسمانی اعمال کے ساتھ مربوط کرنا سیکھیں، جو روبوٹس کو پیچیدہ، انسان نما احکامات کو سمجھنے اور انجام دینے کے قابل بناتا ہے۔
 
-## What You'll Learn
+## یہ کتاب کس کے لیے ہے
 
-This book covers four major areas of embodied AI:
+- **روبوٹکس انجینیئرز** جو جدید AI تکنیکوں کو مربوط کرنا چاہتے ہیں
+- **AI/ML انجینیئرز** جو اپنی مہارتوں کو فزیکل سسٹمز پر لاگو کرنا چاہتے ہیں
+- **طلباء اور محققین** جو Embodied AI کی کھوج کر رہے ہیں
+- **شوقین افراد** جو ذہین روبوٹک پروجیکٹس بنا رہے ہیں
 
-### Module 1: ROS 2 - The Robotic Nervous System
-Learn the fundamentals of the Robot Operating System 2 (ROS 2), the industry-standard framework for building robotic applications. Understand nodes, topics, services, actions, and how to architect distributed robotic systems.
+## پیشگی تقاضے
 
-### Module 2: Digital Twin Technology
-Explore simulation environments using Gazebo and Unity. Learn how to create accurate digital replicas of physical robots for testing, validation, and training AI models in safe, controlled environments.
+اگرچہ ہم بنیادی تصورات سے شروع کریں گے، لیکن مندرجہ ذیل سے واقفیت مددگار ہوگی:
 
-### Module 3: NVIDIA Isaac Platform
-Dive into NVIDIA's Isaac platform for AI-powered perception and control. Learn about GPU-accelerated robotics, computer vision pipelines, and real-time decision-making systems.
+- بنیادی پروگرامنگ (Python ترجیحی)
+- Linux کمانڈ لائن کی بنیادی سمجھ
+- بنیادی ریاضی (لکیری الجبرا، کیلکولس)
+- مشین لرننگ کے تصورات کا عمومی علم
 
-### Module 4: Vision-Language-Action (VLA) Models
-Discover the future of robotic intelligence with VLA models. Learn how to integrate natural language understanding with visual perception and physical actions, enabling robots to understand and execute complex, human-like commands.
+## اس کتاب کو کیسے استعمال کریں
 
-## Who This Book Is For
+ہر باب پچھلے تصورات پر بنتا ہے، لہذا ہم ابتدائی افراد کے لیے ترتیب وار پڑھنے کی سفارش کرتے ہیں۔ تجربہ کار پریکٹیشنرز اپنی دلچسپیوں کی بنیاد پر مخصوص ماڈیولز پر جا سکتے ہیں۔
 
-- **Robotics Engineers** looking to integrate modern AI techniques
-- **AI/ML Engineers** wanting to apply their skills to physical systems
-- **Students and Researchers** exploring embodied AI
-- **Hobbyists** building intelligent robotic projects
+پوری کتاب میں، آپ کو ملے گا:
 
-## Prerequisites
+- **کوڈ کی مثالیں**: عملی، کام کرنے والا کوڈ جسے آپ چلا سکتے ہیں
+- **مشقیں**: سیکھنے کو مضبوط بنانے کے لیے ہینڈز آن چیلنجز
+- **حوالہ جات**: تحقیقی مقالوں اور اضافی وسائل کے حوالے
+- **انٹرایکٹو چیٹ بوٹ**: کتاب کے کسی بھی حصے کے بارے میں سوالات پوچھنے کے لیے RAG سے چلنے والے چیٹ بوٹ کا استعمال کریں
 
-While we'll cover concepts from the ground up, familiarity with the following will be helpful:
-
-- Basic programming (Python preferred)
-- Fundamental understanding of Linux command line
-- Basic mathematics (linear algebra, calculus)
-- General knowledge of machine learning concepts
-
-## How to Use This Book
-
-Each chapter builds on previous concepts, so we recommend reading sequentially for beginners. Experienced practitioners can jump to specific modules based on their interests.
-
-Throughout the book, you'll find:
-
-- **Code Examples**: Practical, working code you can run
-- **Exercises**: Hands-on challenges to reinforce learning
-- **Citations**: References to research papers and additional resources
-- **Interactive Chatbot**: Use the RAG-powered chatbot to ask questions about any part of the book
-
-Let's begin your journey into the fascinating world of Embodied AI!
+آئیے Embodied AI کی دلچسپ دنیا میں اپنے سفر کا آغاز کریں!

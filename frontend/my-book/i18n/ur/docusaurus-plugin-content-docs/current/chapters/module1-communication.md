@@ -1,33 +1,17 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module1-communication.md
-
-  TODO: Add Urdu translation below this comment.
--->
-
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
 # ROS 2 Communication Patterns
 
-## Overview
+## جائزہ
 
-ROS 2 provides three primary communication patterns, each suited for different use cases.
+ROS 2 تین بنیادی communication patterns فراہم کرتا ہے، ہر ایک مختلف استعمال کی صورتوں کے لیے موزوں ہے۔
 
 ## 1. Topics (Publish-Subscribe)
 
-### When to Use
-- Continuous data streams (sensor data, state updates)
+### کب استعمال کریں
+- مسلسل data streams (sensor data، state updates)
 - One-to-many communication
 - Fire-and-forget messaging
 
-### Example: Publishing Camera Images
+### مثال: Camera Images کو Publish کرنا
 
 ```python
 from sensor_msgs.msg import Image
@@ -38,7 +22,7 @@ class CameraPublisher(Node):
     def __init__(self):
         super().__init__('camera_publisher')
 
-        # Create publisher with QoS
+        # QoS کے ساتھ publisher بنائیں
         self.publisher = self.create_publisher(
             Image,
             '/camera/image_raw',
@@ -58,7 +42,7 @@ class CameraPublisher(Node):
             self.publisher.publish(msg)
 ```
 
-### Subscribing to Topics
+### Topics کو Subscribe کرنا
 
 ```python
 class ImageSubscriber(Node):
@@ -76,29 +60,29 @@ class ImageSubscriber(Node):
         self.get_logger().info(
             f'Received image: {msg.width}x{msg.height}'
         )
-        # Process the image...
+        # Image کو process کریں...
 ```
 
 ## Quality of Service (QoS)
 
-QoS policies control message delivery behavior:
+QoS policies message delivery کی رویہ کو کنٹرول کرتی ہیں:
 
 ### Reliability
-- **Reliable**: Guarantees delivery (TCP-like)
-- **Best Effort**: May drop messages (UDP-like)
+- **Reliable**: ترسیل کی ضمانت دیتا ہے (TCP کی طرح)
+- **Best Effort**: Messages کو drop کر سکتا ہے (UDP کی طرح)
 
 ### Durability
-- **Transient Local**: Cache last message for late joiners
-- **Volatile**: Only send to current subscribers
+- **Transient Local**: دیر سے شامل ہونے والوں کے لیے آخری message کو cache کریں
+- **Volatile**: صرف موجودہ subscribers کو بھیجیں
 
 ### History
-- **Keep Last**: Store last N messages
-- **Keep All**: Store all messages (until limit)
+- **Keep Last**: آخری N messages کو محفوظ کریں
+- **Keep All**: تمام messages کو محفوظ کریں (حد تک)
 
 ```python
 from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 
-# Define custom QoS
+# Custom QoS کی وضاحت کریں
 qos_profile = QoSProfile(
     reliability=ReliabilityPolicy.RELIABLE,
     durability=DurabilityPolicy.TRANSIENT_LOCAL,
@@ -114,14 +98,14 @@ publisher = node.create_publisher(
 
 ## 2. Services (Request-Response)
 
-### When to Use
-- Occasional requests with responses
+### کب استعمال کریں
+- کبھی کبھار جوابات کے ساتھ درخواستیں
 - Synchronous operations
-- Configuration or command execution
+- Configuration یا command execution
 
-### Example: Add Two Numbers
+### مثال: دو اعداد کو جمع کریں
 
-**Define Service** (`AddTwoInts.srv`):
+**Service کی تعریف** (`AddTwoInts.srv`):
 ```
 int64 a
 int64 b
@@ -176,14 +160,14 @@ class AdditionClient(Node):
 
 ## 3. Actions (Goal-Based)
 
-### When to Use
-- Long-running tasks with feedback
-- Cancelable operations
-- Progress monitoring
+### کب استعمال کریں
+- Feedback کے ساتھ طویل المیعاد کام
+- منسوخ کیے جا سکنے والے operations
+- ترقی کی نگرانی
 
-### Example: Navigate to Goal
+### مثال: Goal تک Navigate کریں
 
-**Action Definition** (`NavigateToGoal.action`):
+**Action کی تعریف** (`NavigateToGoal.action`):
 ```
 # Goal
 geometry_msgs/PoseStamped target_pose
@@ -218,13 +202,13 @@ class NavigationServer(Node):
 
         feedback_msg = NavigateToGoal.Feedback()
 
-        # Simulate navigation
+        # Navigation کو simulate کریں
         for i in range(10):
             if goal_handle.is_cancel_requested:
                 goal_handle.canceled()
                 return NavigateToGoal.Result()
 
-            # Update feedback
+            # Feedback کو update کریں
             feedback_msg.distance_remaining = 10.0 - i
             goal_handle.publish_feedback(feedback_msg)
             time.sleep(0.5)
@@ -236,34 +220,34 @@ class NavigationServer(Node):
         return result
 ```
 
-## Choosing the Right Pattern
+## صحیح Pattern کا انتخاب
 
-| Pattern | Use Case | Example |
+| Pattern | استعمال کی صورت | مثال |
 |---------|----------|---------|
-| **Topic** | Continuous data | Sensor readings, robot state |
-| **Service** | Quick request/response | Get configuration, toggle mode |
-| **Action** | Long task with feedback | Navigation, grasping, planning |
+| **Topic** | مسلسل data | Sensor readings، robot state |
+| **Service** | فوری request/response | Configuration حاصل کریں، mode toggle کریں |
+| **Action** | Feedback کے ساتھ طویل کام | Navigation، grasping، planning |
 
-## Exercise: Temperature Alert System
+## مشق: Temperature Alert System
 
-**Task**: Build a system with all three patterns:
+**کام**: تینوں patterns کے ساتھ ایک system بنائیں:
 
-1. **Topic**: Publish temperature readings
-2. **Service**: Set temperature threshold
-3. **Action**: Run cooling sequence when threshold exceeded
+1. **Topic**: Temperature readings کو publish کریں
+2. **Service**: Temperature threshold سیٹ کریں
+3. **Action**: جب threshold سے تجاوز ہو تو cooling sequence چلائیں
 
-## Summary
+## خلاصہ
 
-- ✓ Mastered pub-sub pattern with topics
-- ✓ Understood QoS policies
-- ✓ Implemented services for request-response
-- ✓ Created actions for long-running tasks
-- ✓ Learned when to use each pattern
+- ✓ Topics کے ساتھ pub-sub pattern میں مہارت حاصل کی
+- ✓ QoS policies کو سمجھا
+- ✓ Request-response کے لیے services کو لاگو کیا
+- ✓ طویل المیعاد کاموں کے لیے actions بنائے
+- ✓ سیکھا کہ ہر pattern کب استعمال کریں
 
-Next chapter covers practical implementations!
+اگلا باب عملی implementations کو cover کرتا ہے!
 
 ---
 
-**Image Placeholder**: [Communication patterns diagram]
+**تصویر کی جگہ**: [Communication patterns diagram]
 
-**Citation**: ROS 2 Documentation. "About Quality of Service Settings." [docs.ros.org](https://docs.ros.org)
+**حوالہ**: ROS 2 Documentation. "About Quality of Service Settings." [docs.ros.org](https://docs.ros.org)

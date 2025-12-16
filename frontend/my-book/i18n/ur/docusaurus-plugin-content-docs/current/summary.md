@@ -1,76 +1,60 @@
-<!--
-  Urdu Translation Placeholder
-  English source: summary.md
+# خلاصہ
 
-  TODO: Add Urdu translation below this comment.
--->
+## کتاب کا جائزہ
 
-# [Urdu Translation Required]
+یہ کتاب **Embodied AI** کا جامع تعارف فراہم کرتی ہے - مصنوعی ذہانت کے سسٹمز جو روبوٹک پلیٹ فارمز کے ذریعے فزیکل دنیا کے ساتھ تعامل کرتے ہیں۔
 
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
+## اہم نکات
 
----
+### ROS 2 بنیادی باتیں
+- **بنیادی تصورات**: nodes، topics، services، اور actions کو سمجھنا
+- **مواصلاتی نمونے**: Publisher-subscriber، request-response، اور goal-based تعاملات
+- **بہترین طریقے**: قابل توسیع، قابل دیکھ بھال روبوٹک سسٹمز کی تعمیر
+- **حقیقی دنیا کے استعمالات**: خود مختار نیویگیشن، manipulation، اور multi-robot ہم آہنگی
 
-**Original English Content (for reference):**
+### Digital Twin ٹیکنالوجی
+- **سمیولیشن فریم ورکس**: روبوٹک سمیولیشن کے لیے Gazebo اور Unity میں مہارت
+- **طبیعیات کے انجن**: حقیقی دنیا کی dynamics کی درست ماڈلنگ
+- **سینسر سمیولیشن**: تربیت اور ٹیسٹنگ کے لیے حقیقت پسندانہ سینسر ڈیٹا بنانا
+- **Sim-to-Real منتقلی**: سمیولیشن اور فزیکل تعیناتی کے درمیان فرق کو پر کرنا
 
-# Summary
+### NVIDIA Isaac پلیٹ فارم
+- **GPU-Accelerated روبوٹکس**: real-time کارکردگی کے لیے CUDA کا فائدہ اٹھانا
+- **Perception پائپ لائنز**: Object detection، tracking، اور منظر کی سمجھ
+- **Isaac SDK & Sim**: AI سے چلنے والے روبوٹکس کے لیے مکمل ماحولیاتی نظام
+- **Edge تعیناتی**: روبوٹک ہارڈویئر پر AI ماڈلز چلانا
 
-## Book Overview
+### Vision-Language-Action ماڈلز
+- **Multimodal سمجھ**: بصارت، زبان، اور عمل کی جگہوں کو یکجا کرنا
+- **قدرتی زبان کا کنٹرول**: انسانی زبان کے ساتھ روبوٹس کو کمانڈ دینا
+- **علمی منصوبہ بندی**: اعلیٰ سطح کی استدلال اور کام کی تقسیم
+- **بنیادی ماڈلز**: روبوٹکس کے لیے پہلے سے تربیت یافتہ ماڈلز کا فائدہ اٹھانا
 
-This book provides a comprehensive introduction to **Embodied AI** - artificial intelligence systems that interact with the physical world through robotic platforms.
+## آگے کا راستہ
 
-## Key Takeaways
+Embodied AI متعدد شعبوں کے سنگم کی نمائندگی کرتا ہے:
 
-### ROS 2 Fundamentals
-- **Core Concepts**: Understanding nodes, topics, services, and actions
-- **Communication Patterns**: Publisher-subscriber, request-response, and goal-based interactions
-- **Best Practices**: Building scalable, maintainable robotic systems
-- **Real-World Applications**: Autonomous navigation, manipulation, and multi-robot coordination
+1. **کمپیوٹر سائنس**: الگورتھم، ڈیٹا سٹرکچرز، اور سافٹ ویئر انجینئرنگ
+2. **مصنوعی ذہانت**: مشین لرننگ، کمپیوٹر ویژن، اور قدرتی زبان کی پروسیسنگ
+3. **روبوٹکس**: Kinematics، dynamics، کنٹرول تھیوری، اور سینسر انٹیگریشن
+4. **سسٹمز انجینئرنگ**: بڑے پیمانے پر انضمام، ٹیسٹنگ، اور تعیناتی
 
-### Digital Twin Technology
-- **Simulation Frameworks**: Mastering Gazebo and Unity for robotic simulation
-- **Physics Engines**: Accurate modeling of real-world dynamics
-- **Sensor Simulation**: Creating realistic sensor data for training and testing
-- **Sim-to-Real Transfer**: Bridging the gap between simulation and physical deployment
+جیسے جیسے آپ اپنے سفر کو جاری رکھتے ہیں:
 
-### NVIDIA Isaac Platform
-- **GPU-Accelerated Robotics**: Leveraging CUDA for real-time performance
-- **Perception Pipelines**: Object detection, tracking, and scene understanding
-- **Isaac SDK & Sim**: Complete ecosystem for AI-powered robotics
-- **Edge Deployment**: Running AI models on robotic hardware
+- **تجربہ کریں**: پروجیکٹس بنائیں، غلطیاں کریں، اور ان سے سیکھیں
+- **تعاون کریں**: اوپن سورس روبوٹکس کمیونٹی میں شامل ہوں
+- **اپ ٹو ڈیٹ رہیں**: embodied AI میں تحقیقی ترقیات کی پیروی کریں
+- **جامع سوچیں**: حفاظت، اخلاقیات، اور معاشرتی اثر پر غور کریں
 
-### Vision-Language-Action Models
-- **Multimodal Understanding**: Integrating vision, language, and action spaces
-- **Natural Language Control**: Commanding robots with human language
-- **Cognitive Planning**: High-level reasoning and task decomposition
-- **Foundation Models**: Leveraging pre-trained models for robotics
+## مسلسل سیکھنے کے لیے وسائل
 
-## The Path Forward
-
-Embodied AI represents the convergence of multiple disciplines:
-
-1. **Computer Science**: Algorithms, data structures, and software engineering
-2. **Artificial Intelligence**: Machine learning, computer vision, and natural language processing
-3. **Robotics**: Kinematics, dynamics, control theory, and sensor integration
-4. **Systems Engineering**: Integration, testing, and deployment at scale
-
-As you continue your journey:
-
-- **Experiment**: Build projects, make mistakes, and learn from them
-- **Contribute**: Join the open-source robotics community
-- **Stay Current**: Follow research developments in embodied AI
-- **Think Holistically**: Consider safety, ethics, and societal impact
-
-## Resources for Continued Learning
-
-- **ROS 2 Documentation**: [docs.ros.org](https://docs.ros.org)
+- **ROS 2 دستاویزات**: [docs.ros.org](https://docs.ros.org)
 - **NVIDIA Isaac**: [developer.nvidia.com/isaac](https://developer.nvidia.com/isaac)
-- **Research Papers**: arXiv robotics and AI sections
-- **Communities**: ROS Discourse, robotics subreddits, Discord servers
+- **تحقیقی مقالات**: arXiv روبوٹکس اور AI سیکشنز
+- **کمیونٹیز**: ROS Discourse، robotics subreddits، Discord servers
 
-## Conclusion
+## اختتام
 
-The field of embodied AI is rapidly evolving. The skills and concepts covered in this book provide a strong foundation for building intelligent robotic systems. Whether you're developing autonomous vehicles, warehouse robots, or household assistants, the principles remain the same: perceive the world accurately, reason about it intelligently, and act safely and effectively.
+Embodied AI کا شعبہ تیزی سے ترقی کر رہا ہے۔ اس کتاب میں شامل مہارتیں اور تصورات ذہین روبوٹک سسٹمز کی تعمیر کے لیے ایک مضبوط بنیاد فراہم کرتے ہیں۔ چاہے آپ خود مختار گاڑیاں، گودام کے روبوٹس، یا گھریلو معاونین تیار کر رہے ہوں، اصول وہی رہتے ہیں: دنیا کو درستگی سے سمجھیں، اس کے بارے میں ذہانت سے سوچیں، اور محفوظ اور مؤثر طریقے سے عمل کریں۔
 
-Thank you for reading, and best of luck on your embodied AI journey!
+پڑھنے کا شکریہ، اور آپ کے embodied AI سفر میں نیک خواہشات!

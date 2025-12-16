@@ -1,24 +1,8 @@
-<!--
-  Urdu Translation Placeholder
-  English source: references.md
+# حوالہ جات
 
-  TODO: Add Urdu translation below this comment.
--->
+## تعلیمی مقالات
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# References
-
-## Academic Papers
-
-### Vision-Language-Action Models
+### Vision-Language-Action ماڈلز
 
 1. Brohan, A., et al. (2023). "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control." *arXiv preprint arXiv:2307.15818*
 
@@ -32,13 +16,13 @@
 
 5. Anderson, P., et al. (2018). "Vision-and-Language Navigation: Interpreting visually-grounded navigation instructions in real environments." *CVPR*
 
-### SLAM and Navigation
+### SLAM اور نیویگیشن
 
 6. Macenski, S., et al. (2020). "Robot Operating System 2: Design, architecture, and uses in the wild." *Science Robotics*
 
 7. Cadena, C., et al. (2016). "Past, Present, and Future of Simultaneous Localization and Mapping: Toward the Robust-Perception Age." *IEEE Transactions on Robotics*
 
-## Books
+## کتابیں
 
 8. Siciliano, B., et al. (2016). *Robotics: Modelling, Planning and Control.* Springer.
 
@@ -46,7 +30,7 @@
 
 10. Koenig, N., & Howard, A. (2004). *Design and Use Paradigms for Gazebo, An Open-Source Multi-Robot Simulator.*
 
-## Technical Documentation
+## تکنیکی دستاویزات
 
 ### ROS 2
 
@@ -62,15 +46,15 @@
 
 15. NVIDIA Isaac SDK Documentation. [https://developer.nvidia.com/isaac-sdk](https://developer.nvidia.com/isaac-sdk)
 
-### Simulation Platforms
+### سمیولیشن پلیٹ فارمز
 
 16. Gazebo Documentation. [https://gazebosim.org/docs](https://gazebosim.org/docs)
 
 17. Unity Robotics Hub. [https://github.com/Unity-Technologies/Unity-Robotics-Hub](https://github.com/Unity-Technologies/Unity-Robotics-Hub)
 
-## Online Resources
+## آن لائن وسائل
 
-### Courses and Tutorials
+### کورسز اور ٹیوٹوریلز
 
 18. The Construct. "ROS 2 Basics in 5 Days." [https://www.theconstructsim.com](https://www.theconstructsim.com)
 
@@ -78,7 +62,7 @@
 
 20. MIT OpenCourseWare. "Underactuated Robotics."
 
-### Community Resources
+### کمیونٹی وسائل
 
 21. ROS Discourse. [https://discourse.ros.org](https://discourse.ros.org)
 
@@ -88,7 +72,7 @@
 
 24. r/robotics subreddit. [https://reddit.com/r/robotics](https://reddit.com/r/robotics)
 
-## Datasets
+## ڈیٹاسیٹس
 
 25. KITTI Vision Benchmark Suite. [http://www.cvlibs.net/datasets/kitti/](http://www.cvlibs.net/datasets/kitti/)
 
@@ -96,7 +80,7 @@
 
 27. RoboNet. [https://www.robonet.wiki/](https://www.robonet.wiki/)
 
-## Software and Tools
+## سافٹ ویئر اور ٹولز
 
 28. PyTorch. [https://pytorch.org](https://pytorch.org)
 
@@ -104,18 +88,18 @@
 
 30. Docker. [https://www.docker.com](https://www.docker.com)
 
-## Standards and Protocols
+## معیارات اور پروٹوکولز
 
 31. DDS (Data Distribution Service) Specification. Object Management Group.
 
 32. URDF Format Specification. [http://wiki.ros.org/urdf](http://wiki.ros.org/urdf)
 
-## Citation Style
+## حوالہ کا انداز
 
-All references follow the IEEE citation style. When citing papers from this book, use:
+تمام حوالہ جات IEEE حوالہ انداز کی پیروی کرتے ہیں۔ اس کتاب سے مقالات کا حوالہ دیتے وقت، استعمال کریں:
 
 > Author(s). "Title." *Source*, Year.
 
-For online resources accessed during book creation:
+کتاب کی تخلیق کے دوران رسائی شدہ آن لائن وسائل کے لیے:
 
 > Resource Name. "Page Title." URL. Accessed: December 2025.

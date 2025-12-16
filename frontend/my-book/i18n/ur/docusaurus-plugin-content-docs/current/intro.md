@@ -2,64 +2,46 @@
 sidebar_position: 1
 ---
 
-<!--
-  Urdu Translation Placeholder
-  English source: intro.md
+# ٹیوٹوریل تعارف
 
-  TODO: Add Urdu translation below this comment.
-  The frontmatter above (id, title, sidebar_position, etc.) has been preserved
-  to ensure proper chapter ID matching and navigation.
--->
+آئیے **5 منٹ سے کم میں Docusaurus** کو دریافت کریں۔
 
-# [Urdu Translation Required]
+## شروع کرنا
 
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
+**نئی سائٹ بنا کر** شروع کریں۔
 
----
+یا **[docusaurus.new](https://docusaurus.new)** کے ساتھ **فوری طور پر Docusaurus آزمائیں**۔
 
-**Original English Content (for reference):**
+### آپ کو کیا چاہیے ہوگا
 
-# Tutorial Intro
+- [Node.js](https://nodejs.org/en/download/) ورژن 20.0 یا اس سے اوپر:
+  - Node.js انسٹال کرتے وقت، آپ کو انحصارات سے متعلق تمام چیک باکسز کو چیک کرنے کی سفارش کی جاتی ہے۔
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## نئی سائٹ بنائیں
 
-## Getting Started
+**کلاسک ٹیمپلیٹ** استعمال کرتے ہوئے نئی Docusaurus سائٹ بنائیں۔
 
-Get started by **creating a new site**.
-
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
-
-### What you'll need
-
-- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
+کلاسک ٹیمپلیٹ خودکار طور پر آپ کے پروجیکٹ میں شامل ہو جائے گا جب آپ کمانڈ چلائیں گے:
 
 ```bash
 npm init docusaurus@latest my-website classic
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+آپ اس کمانڈ کو Command Prompt، Powershell، Terminal، یا اپنے کوڈ ایڈیٹر کے کسی دوسرے مربوط ٹرمینل میں ٹائپ کر سکتے ہیں۔
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+یہ کمانڈ Docusaurus چلانے کے لیے ضروری تمام انحصارات بھی انسٹال کرتی ہے۔
 
-## Start your site
+## اپنی سائٹ شروع کریں
 
-Run the development server:
+ڈیولپمنٹ سرور چلائیں:
 
 ```bash
 cd my-website
 npm run start
 ```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+`cd` کمانڈ اس ڈائرکٹری کو تبدیل کرتی ہے جس کے ساتھ آپ کام کر رہے ہیں۔ اپنی نئی بنائی گئی Docusaurus سائٹ کے ساتھ کام کرنے کے لیے، آپ کو ٹرمینل کو وہاں نیویگیٹ کرنا ہوگا۔
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+`npm run start` کمانڈ آپ کی ویب سائٹ کو مقامی طور پر بناتی ہے اور اسے ڈیولپمنٹ سرور کے ذریعے پیش کرتی ہے، جو آپ کے لیے http://localhost:3000/ پر دیکھنے کے لیے تیار ہے۔
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+`docs/intro.md` (یہ صفحہ) کھولیں اور کچھ لائنیں ایڈٹ کریں: سائٹ **خودکار طور پر دوبارہ لوڈ ہوتی ہے** اور آپ کی تبدیلیاں ظاہر کرتی ہے۔

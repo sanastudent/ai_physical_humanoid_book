@@ -1,177 +1,161 @@
-<!--
-  Urdu Translation Placeholder
-  English source: glossary.md
-
-  TODO: Add Urdu translation below this comment.
--->
-
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Glossary
+# لغت
 
 ## A
 
-**Action (ROS 2)**: A communication pattern for long-running tasks that provides feedback during execution and a final result.
+**Action (ROS 2)**: طویل المیعاد کاموں کے لیے ایک مواصلاتی نمونہ جو عملدرآمد کے دوران فیڈ بیک اور حتمی نتیجہ فراہم کرتا ہے۔
 
-**Actuator**: A mechanical device that converts energy into motion, such as motors or servos.
+**Actuator**: ایک مکینیکل ڈیوائس جو توانائی کو حرکت میں تبدیل کرتی ہے، جیسے موٹرز یا servos۔
 
-**AMCL (Adaptive Monte Carlo Localization)**: A probabilistic localization algorithm using particle filters.
+**AMCL (Adaptive Monte Carlo Localization)**: particle filters استعمال کرتے ہوئے ایک امکانی مقام کی تعیین کا الگورتھم۔
 
-**Autonomous Navigation**: The ability of a robot to move through an environment without human intervention.
+**Autonomous Navigation**: روبوٹ کی انسانی مداخلت کے بغیر ماحول میں منتقل ہونے کی صلاحیت۔
 
 ## B
 
-**Behavior Tree**: A hierarchical structure for organizing robot behaviors and decision-making logic.
+**Behavior Tree**: روبوٹ کے رویوں اور فیصلہ سازی کے منطق کو منظم کرنے کے لیے ایک درجہ بندی کا ڈھانچہ۔
 
 ## C
 
-**CUDA (Compute Unified Device Architecture)**: NVIDIA's parallel computing platform for GPU programming.
+**CUDA (Compute Unified Device Architecture)**: GPU پروگرامنگ کے لیے NVIDIA کا متوازی کمپیوٹنگ پلیٹ فارم۔
 
-**Cartesian Space**: 3D coordinate system representing positions and orientations in physical space.
+**Cartesian Space**: 3D کوآرڈینیٹ سسٹم جو فزیکل اسپیس میں پوزیشنز اور سمتوں کی نمائندگی کرتا ہے۔
 
-**Cognitive Planning**: High-level reasoning about tasks, goals, and action sequences.
+**Cognitive Planning**: کاموں، اہداف، اور عمل کی ترتیب کے بارے میں اعلیٰ سطح کی استدلال۔
 
-**Computer Vision**: Field of AI focused on enabling computers to interpret visual information.
+**Computer Vision**: AI کا شعبہ جو کمپیوٹرز کو بصری معلومات کی تشریح کرنے کے قابل بنانے پر مرکوز ہے۔
 
 ## D
 
-**DDS (Data Distribution Service)**: Middleware protocol used by ROS 2 for real-time communication.
+**DDS (Data Distribution Service)**: ROS 2 کی طرف سے real-time مواصلات کے لیے استعمال کیا جانے والا middleware پروٹوکول۔
 
-**Digital Twin**: A virtual replica of a physical system used for simulation and testing.
+**Digital Twin**: ایک فزیکل سسٹم کی ورچوئل نقل جو سمیولیشن اور ٹیسٹنگ کے لیے استعمال ہوتی ہے۔
 
-**DMP (Dynamic Movement Primitives)**: A framework for learning and generating robot movements.
+**DMP (Dynamic Movement Primitives)**: روبوٹ کی حرکات سیکھنے اور پیدا کرنے کے لیے ایک فریم ورک۔
 
 ## E
 
-**Embodied AI**: AI systems that interact with the physical world through robotic platforms.
+**Embodied AI**: AI سسٹمز جو روبوٹک پلیٹ فارمز کے ذریعے فزیکل دنیا کے ساتھ تعامل کرتے ہیں۔
 
-**End Effector**: The device at the end of a robotic arm (e.g., gripper, tool).
+**End Effector**: روبوٹک بازو کے آخر میں ڈیوائس (مثلاً، gripper، ٹول)۔
 
-**EKF (Extended Kalman Filter)**: Algorithm for estimating system state from noisy measurements.
+**EKF (Extended Kalman Filter)**: شور والے پیمائشوں سے سسٹم کی حالت کا اندازہ لگانے کے لیے الگورتھم۔
 
 ## F
 
-**Forward Kinematics**: Computing end-effector position from joint angles.
+**Forward Kinematics**: جوڑوں کے زاویوں سے end-effector کی پوزیشن کا حساب لگانا۔
 
-**Foundation Model**: Large pre-trained AI model that can be adapted to various tasks.
+**Foundation Model**: بڑا پہلے سے تربیت یافتہ AI ماڈل جسے مختلف کاموں کے لیے ڈھالا جا سکتا ہے۔
 
 ## G
 
-**Gazebo**: Open-source 3D robot simulator with accurate physics.
+**Gazebo**: درست طبیعیات کے ساتھ اوپن سورس 3D روبوٹ سمیولیٹر۔
 
-**GPU (Graphics Processing Unit)**: Specialized processor for parallel computations, used in AI and robotics.
+**GPU (Graphics Processing Unit)**: متوازی حسابات کے لیے خصوصی پروسیسر، AI اور روبوٹکس میں استعمال ہوتا ہے۔
 
-**Grasp Planning**: Determining optimal gripper positions and forces for object manipulation.
+**Grasp Planning**: چیزوں کو ہیرا پھیری کے لیے بہترین gripper پوزیشنز اور قوتوں کا تعین کرنا۔
 
 ## I
 
-**IMU (Inertial Measurement Unit)**: Sensor measuring acceleration and rotation.
+**IMU (Inertial Measurement Unit)**: سینسر جو acceleration اور rotation کی پیمائش کرتا ہے۔
 
-**Inverse Kinematics**: Computing joint angles needed to reach a desired end-effector position.
+**Inverse Kinematics**: مطلوبہ end-effector پوزیشن تک پہنچنے کے لیے جوڑوں کے زاویوں کا حساب لگانا۔
 
-**Isaac Sim**: NVIDIA's robot simulation platform built on Omniverse.
+**Isaac Sim**: NVIDIA کا روبوٹ سمیولیشن پلیٹ فارم جو Omniverse پر بنایا گیا ہے۔
 
 ## J
 
-**Joint Space**: Representation of robot configuration using joint angles.
+**Joint Space**: جوڑوں کے زاویوں کا استعمال کرتے ہوئے روبوٹ کی ترتیب کی نمائندگی۔
 
 ## K
 
-**Kinematics**: Study of motion without considering forces.
+**Kinematics**: قوتوں پر غور کیے بغیر حرکت کا مطالعہ۔
 
-**KITTI Dataset**: Benchmark dataset for autonomous driving and computer vision.
+**KITTI Dataset**: خود مختار ڈرائیونگ اور کمپیوٹر ویژن کے لیے benchmark ڈیٹاسیٹ۔
 
 ## L
 
-**LiDAR (Light Detection and Ranging)**: Sensor that measures distances using laser pulses.
+**LiDAR (Light Detection and Ranging)**: سینسر جو لیزر pulses استعمال کرتے ہوئے فاصلوں کی پیمائش کرتا ہے۔
 
-**Latency**: Time delay between input and output in a system.
+**Latency**: سسٹم میں ان پٹ اور آؤٹ پٹ کے درمیان وقت کی تاخیر۔
 
 ## M
 
-**MoveIt**: Motion planning framework for ROS.
+**MoveIt**: ROS کے لیے motion planning فریم ورک۔
 
-**Multimodal Learning**: AI that processes multiple types of data (vision, language, etc.).
+**Multimodal Learning**: AI جو متعدد قسم کے ڈیٹا (بصارت، زبان، وغیرہ) پر کارروائی کرتا ہے۔
 
 ## N
 
-**Nav2 (Navigation 2)**: ROS 2 navigation stack for autonomous mobile robots.
+**Nav2 (Navigation 2)**: خود مختار موبائل روبوٹس کے لیے ROS 2 نیویگیشن اسٹیک۔
 
-**Node (ROS)**: Independent process that performs computation.
+**Node (ROS)**: آزاد عمل جو حساب کتاب کرتا ہے۔
 
 ## O
 
-**Occupancy Grid**: 2D representation of environment showing free and occupied space.
+**Occupancy Grid**: ماحول کی 2D نمائندگی جو خالی اور مقبوضہ جگہ دکھاتی ہے۔
 
-**Odometry**: Estimating position change from sensor data.
+**Odometry**: سینسر ڈیٹا سے پوزیشن کی تبدیلی کا اندازہ لگانا۔
 
-**Omniverse**: NVIDIA's platform for 3D simulation and collaboration.
+**Omniverse**: 3D سمیولیشن اور تعاون کے لیے NVIDIA کا پلیٹ فارم۔
 
 ## P
 
-**Path Planning**: Finding collision-free paths from start to goal positions.
+**Path Planning**: شروع سے منزل کی پوزیشنز تک تصادم سے پاک راستے تلاش کرنا۔
 
-**Perception Pipeline**: Series of processing steps converting sensor data to semantic understanding.
+**Perception Pipeline**: پروسیسنگ کے مراحل کی سیریز جو سینسر ڈیٹا کو معنوی سمجھ میں تبدیل کرتی ہے۔
 
-**Point Cloud**: Set of 3D points representing surfaces in space.
+**Point Cloud**: 3D پوائنٹس کا سیٹ جو خلا میں سطحوں کی نمائندگی کرتا ہے۔
 
-**Publisher (ROS)**: Node that sends messages to a topic.
+**Publisher (ROS)**: Node جو topic کو پیغامات بھیجتا ہے۔
 
 ## Q
 
-**QoS (Quality of Service)**: Settings controlling message delivery reliability in ROS 2.
+**QoS (Quality of Service)**: ROS 2 میں پیغام کی ترسیل کی وشوسنییتا کو کنٹرول کرنے والی ترتیبات۔
 
 ## R
 
-**RAG (Retrieval-Augmented Generation)**: AI technique combining retrieval and generation for better responses.
+**RAG (Retrieval-Augmented Generation)**: بہتر جوابات کے لیے بازیافت اور تخلیق کو یکجا کرنے والی AI تکنیک۔
 
-**ROS 2 (Robot Operating System 2)**: Framework for writing robot software.
+**ROS 2 (Robot Operating System 2)**: روبوٹ سافٹ ویئر لکھنے کے لیے فریم ورک۔
 
-**RVIZ**: 3D visualization tool for ROS.
+**RVIZ**: ROS کے لیے 3D visualization ٹول۔
 
 ## S
 
-**SLAM (Simultaneous Localization and Mapping)**: Building a map while tracking position.
+**SLAM (Simultaneous Localization and Mapping)**: پوزیشن کی ٹریکنگ کے دوران نقشہ بنانا۔
 
-**Sensor Fusion**: Combining data from multiple sensors for better estimates.
+**Sensor Fusion**: بہتر تخمینوں کے لیے متعدد سینسرز سے ڈیٹا کو یکجا کرنا۔
 
-**Service (ROS)**: Request-response communication pattern.
+**Service (ROS)**: درخواست-جواب مواصلاتی نمونہ۔
 
-**Sim-to-Real Transfer**: Applying policies learned in simulation to real robots.
+**Sim-to-Real Transfer**: سمیولیشن میں سیکھی گئی پالیسیوں کو حقیقی روبوٹس پر لاگو کرنا۔
 
-**Subscriber (ROS)**: Node that receives messages from a topic.
+**Subscriber (ROS)**: Node جو topic سے پیغامات وصول کرتا ہے۔
 
 ## T
 
-**TF2 (Transform Library 2)**: ROS 2 library for tracking coordinate frames.
+**TF2 (Transform Library 2)**: coordinate frames کی ٹریکنگ کے لیے ROS 2 لائبریری۔
 
-**Topic (ROS)**: Named bus for exchanging messages between nodes.
+**Topic (ROS)**: nodes کے درمیان پیغامات کے تبادلے کے لیے نامزد bus۔
 
-**Trajectory**: Time-parameterized path showing position, velocity, and acceleration.
+**Trajectory**: وقت کے ساتھ پیرامیٹرائزڈ راستہ جو پوزیشن، رفتار، اور acceleration دکھاتا ہے۔
 
 ## U
 
-**URDF (Unified Robot Description Format)**: XML format describing robot geometry and kinematics.
+**URDF (Unified Robot Description Format)**: XML فارمیٹ جو روبوٹ کی جیومیٹری اور kinematics بیان کرتا ہے۔
 
-**Unity**: Game engine used for robotic simulation and digital twins.
+**Unity**: Game engine جو روبوٹک سمیولیشن اور digital twins کے لیے استعمال ہوتا ہے۔
 
 ## V
 
-**VLA (Vision-Language-Action)**: Models integrating visual perception, language understanding, and action generation.
+**VLA (Vision-Language-Action)**: بصری ادراک، زبان کی سمجھ، اور عمل کی تخلیق کو یکجا کرنے والے ماڈلز۔
 
-**Visual Servoing**: Using visual feedback to control robot motion.
+**Visual Servoing**: روبوٹ کی حرکت کو کنٹرول کرنے کے لیے بصری فیڈ بیک کا استعمال۔
 
 ## X
 
-**XACRO**: XML macro language for creating parameterized URDF files.
+**XACRO**: پیرامیٹرائزڈ URDF فائلیں بنانے کے لیے XML macro زبان۔
 
 ## Z
 
-**Zero-Shot Learning**: AI model performing tasks without task-specific training.
+**Zero-Shot Learning**: AI ماڈل جو کام مخصوص تربیت کے بغیر کام انجام دیتا ہے۔

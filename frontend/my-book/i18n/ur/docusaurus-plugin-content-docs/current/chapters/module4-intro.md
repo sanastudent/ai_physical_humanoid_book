@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module4-intro.md
+# ماڈیول 4: Vision-Language-Action ماڈلز کا تعارف
 
-  TODO: Add Urdu translation below this comment.
--->
+VLA تعارفی باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 4: Introduction to Vision-Language-Action Models
-
-Content for VLA introduction chapter coming soon...
-
-This chapter will cover:
-- VLA model architecture
-- Foundation models for robotics
-- RT-1 and RT-2 models
-- PaLM-E and multimodal understanding
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- VLA ماڈل کی تعمیر
+- روبوٹکس کے لیے بنیادی ماڈلز
+- RT-1 اور RT-2 ماڈلز
+- PaLM-E اور multimodal سمجھ

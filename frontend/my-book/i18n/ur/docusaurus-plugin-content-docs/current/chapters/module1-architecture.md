@@ -1,77 +1,61 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module1-architecture.md
+# ROS 2 Architecture اور Design Patterns
 
-  TODO: Add Urdu translation below this comment.
--->
+## سسٹم Architecture
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# ROS 2 Architecture and Design Patterns
-
-## System Architecture
-
-ROS 2 follows a distributed, modular architecture that enables flexibility and scalability in robotic systems.
+ROS 2 ایک distributed، modular architecture کی پیروی کرتا ہے جو robotic systems میں لچک اور scalability کو قابل بناتا ہے۔
 
 ## Communication Layers
 
 ### 1. Application Layer
-Your custom nodes and packages that implement robot behaviors.
+آپ کے custom nodes اور packages جو robot کی رویات کو لاگو کرتے ہیں۔
 
 ### 2. ROS 2 Client Library (RCL)
-Language-agnostic core functionality:
+زبان سے آزاد بنیادی فعالیت:
 - Node lifecycle management
 - Communication patterns
 - Parameter handling
 
 ### 3. ROS Middleware (RMW)
-Abstraction layer over DDS implementations:
+DDS implementations پر abstraction layer:
 - Fast DDS (default)
 - Cyclone DDS
 - RTI Connext DDS
 
 ### 4. DDS Layer
-Underlying communication protocol handling discovery, serialization, and transport.
+بنیادی communication protocol جو discovery، serialization، اور transport کو سنبھالتا ہے۔
 
 ## Design Patterns
 
 ### Separation of Concerns
 
-Break complex functionality into focused nodes:
+پیچیدہ فعالیت کو مرکوز nodes میں تقسیم کریں:
 
 ```python
-# Bad: Monolithic node
+# خراب: Monolithic node
 class RobotNode:
     def __init__(self):
         self.camera = Camera()
         self.vision = VisionProcessor()
         self.planner = PathPlanner()
         self.controller = MotorController()
-    # Everything in one place!
+    # سب کچھ ایک جگہ!
 
-# Good: Modular design
-class CameraNode:  # Only handles camera
-class VisionNode:  # Only processes images
-class PlannerNode:  # Only plans paths
-class ControlNode:  # Only controls motors
+# اچھا: Modular design
+class CameraNode:  # صرف camera کو سنبھالتا ہے
+class VisionNode:  # صرف images کو process کرتا ہے
+class PlannerNode:  # صرف paths کی منصوبہ بندی کرتا ہے
+class ControlNode:  # صرف motors کو control کرتا ہے
 ```
 
 ### Composition
 
-Combine multiple nodes in a single process for efficiency:
+کارکردگی کے لیے ایک واحد process میں متعدد nodes کو یکجا کریں:
 
 ```python
 from rclpy.node import Node
 
 class SensorFusion(Node):
-    """Combines IMU and wheel odometry"""
+    """IMU اور wheel odometry کو یکجا کرتا ہے"""
     def __init__(self):
         super().__init__('sensor_fusion')
         self.imu_sub = self.create_subscription(...)
@@ -81,7 +65,7 @@ class SensorFusion(Node):
 
 ## Lifecycle Management
 
-ROS 2 provides managed nodes with defined states:
+ROS 2 متعین states کے ساتھ managed nodes فراہم کرتا ہے:
 
 ```
 [Unconfigured] --configure--> [Inactive] --activate--> [Active]
@@ -90,12 +74,12 @@ ROS 2 provides managed nodes with defined states:
                                    +----- deactivate -----+
 ```
 
-**Use Cases**:
-- Controlled startup sequences
+**استعمال کی صورتیں**:
+- کنٹرول شدہ startup sequences
 - Error recovery
 - Resource management
 
-## Example: Temperature Monitor
+## مثال: Temperature Monitor
 
 ```python
 from lifecycle_msgs.msg import Transition
@@ -123,7 +107,7 @@ class TempMonitor(LifecycleNode):
 
 ## Package Organization
 
-### Standard Package Structure
+### معیاری Package Structure
 
 ```
 my_robot_pkg/
@@ -140,12 +124,12 @@ my_robot_pkg/
 └── test/               # Unit tests
 ```
 
-## Best Practices
+## بہترین طریقے
 
-### 1. Use Namespaces
+### 1. Namespaces استعمال کریں
 
 ```python
-# Organize topics hierarchically
+# Topics کو درجہ بندی سے منظم کریں
 /robot1/camera/image
 /robot1/lidar/scan
 /robot2/camera/image
@@ -172,27 +156,27 @@ self.get_logger().error('Error occurred')
 self.get_logger().fatal('Critical failure')
 ```
 
-## Exercise: Lifecycle Node
+## مشق: Lifecycle Node
 
-**Task**: Create a lifecycle node for a robot arm controller.
+**کام**: ایک robot arm controller کے لیے lifecycle node بنائیں۔
 
-**Requirements**:
-- Configure: Initialize motor drivers
-- Activate: Enable motors and start control loop
-- Deactivate: Stop control loop, keep motors enabled
-- Cleanup: Shutdown motor drivers
+**تقاضے**:
+- Configure: Motor drivers کو شروع کریں
+- Activate: Motors کو فعال کریں اور control loop شروع کریں
+- Deactivate: Control loop بند کریں، motors کو فعال رکھیں
+- Cleanup: Motor drivers کو بند کریں
 
-## Summary
+## خلاصہ
 
-- ✓ Understood ROS 2 layered architecture
-- ✓ Learned design patterns for modular systems
-- ✓ Explored lifecycle management
-- ✓ Best practices for package organization
+- ✓ ROS 2 layered architecture کو سمجھا
+- ✓ Modular systems کے لیے design patterns سیکھے
+- ✓ Lifecycle management کو دریافت کیا
+- ✓ Package organization کے لیے بہترین طریقے
 
-Next, we'll explore communication patterns in detail.
+اگلے، ہم communication patterns کو تفصیل سے دریافت کریں گے۔
 
 ---
 
-**Image Placeholder**: [Architecture diagram showing ROS 2 layers]
+**تصویر کی جگہ**: [ROS 2 layers دکھانے والا architecture diagram]
 
-**Citation**: ROS 2 Design Documentation. [https://design.ros2.org/](https://design.ros2.org/)
+**حوالہ**: ROS 2 Design Documentation. [https://design.ros2.org/](https://design.ros2.org/)
