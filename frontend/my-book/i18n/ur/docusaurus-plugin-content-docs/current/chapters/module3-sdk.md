@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module3-sdk.md
+# ماڈیول 3: Isaac SDK
 
-  TODO: Add Urdu translation below this comment.
--->
+Isaac SDK باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 3: Isaac SDK
-
-Content for Isaac SDK chapter coming soon...
-
-This chapter will cover:
-- SDK installation
-- Building applications
-- GEMs (reusable components)
-- Performance optimization
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- SDK کی تنصیب
+- ایپلیکیشنز کی تعمیر
+- GEMs (دوبارہ قابل استعمال اجزاء)
+- کارکردگی کی بہتری

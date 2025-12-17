@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module2-gazebo.md
+# ماڈیول 2: Gazebo سمیولیشن
 
-  TODO: Add Urdu translation below this comment.
--->
+Gazebo سمیولیشن باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 2: Gazebo Simulation
-
-Content for Gazebo simulation chapter coming soon...
-
-This chapter will cover:
-- Gazebo installation and setup
-- World creation and URDF models
-- Sensor plugins
-- ROS 2 integration
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- Gazebo کی تنصیب اور سیٹ اپ
+- ورلڈ کی تخلیق اور URDF ماڈلز
+- سینسر پلگ انز
+- ROS 2 انٹیگریشن

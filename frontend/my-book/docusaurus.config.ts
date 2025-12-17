@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Embodied AI: Building Intelligent Robotic Systems',
-  tagline: 'A comprehensive guide to ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action models',
+  title: 'Physical AI & Humanoid Robotics',
+  tagline: 'A comprehensive textbook on Physical AI and Humanoid Robotics',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -76,14 +76,14 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
-      defaultMode: 'light',
-      disableSwitch: true,
+      defaultMode: 'dark',
+      disableSwitch: false,
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Embodied AI Book',
+      title: 'Physical AI & Humanoid Robotics',
       logo: {
-        alt: 'Embodied AI Logo',
+        alt: 'Physical AI & Humanoid Robotics',
         src: 'img/logo.svg',
       },
       items: [
@@ -95,6 +95,11 @@ const config: Config = {
         },
         {
           type: 'localeDropdown',
+          position: 'right',
+        },
+        {
+          to: '/preferences',
+          label: 'Preferences',
           position: 'right',
         },
         {

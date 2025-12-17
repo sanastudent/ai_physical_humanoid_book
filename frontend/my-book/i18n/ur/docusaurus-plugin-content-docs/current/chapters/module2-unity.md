@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module2-unity.md
+# ماڈیول 2: روبوٹکس کے لیے Unity
 
-  TODO: Add Urdu translation below this comment.
--->
+Unity روبوٹکس باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 2: Unity for Robotics
-
-Content for Unity robotics chapter coming soon...
-
-This chapter will cover:
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
 - Unity Robotics Hub
 - URDF Importer
-- ROS-Unity integration
-- Perception training
+- ROS-Unity انٹیگریشن
+- Perception ٹریننگ

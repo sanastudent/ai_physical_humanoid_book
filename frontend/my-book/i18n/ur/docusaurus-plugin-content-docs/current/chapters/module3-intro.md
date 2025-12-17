@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module3-intro.md
+# ماڈیول 3: NVIDIA Isaac کا تعارف
 
-  TODO: Add Urdu translation below this comment.
--->
+NVIDIA Isaac تعارفی باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 3: Introduction to NVIDIA Isaac
-
-Content for NVIDIA Isaac introduction coming soon...
-
-This chapter will cover:
-- Isaac platform overview
-- Isaac Sim capabilities
-- Isaac SDK components
-- GPU acceleration benefits
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- Isaac پلیٹ فارم کا جائزہ
+- Isaac Sim کی صلاحیتیں
+- Isaac SDK اجزاء
+- GPU acceleration کے فوائد

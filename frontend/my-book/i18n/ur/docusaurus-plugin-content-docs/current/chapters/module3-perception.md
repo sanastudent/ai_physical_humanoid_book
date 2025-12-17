@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module3-perception.md
+# ماڈیول 3: Perception پائپ لائنز
 
-  TODO: Add Urdu translation below this comment.
--->
+Perception پائپ لائنز باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 3: Perception Pipelines
-
-Content for perception pipelines chapter coming soon...
-
-This chapter will cover:
-- Computer vision with Isaac
-- Object detection and tracking
-- Scene understanding
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- Isaac کے ساتھ کمپیوٹر ویژن
+- Object detection اور tracking
+- منظر کی سمجھ
 - Sensor fusion

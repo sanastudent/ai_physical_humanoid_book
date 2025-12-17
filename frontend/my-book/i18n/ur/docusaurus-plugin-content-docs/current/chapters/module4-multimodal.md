@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module4-multimodal.md
+# ماڈیول 4: Multimodal لرننگ
 
-  TODO: Add Urdu translation below this comment.
--->
+Multimodal لرننگ باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 4: Multimodal Learning
-
-Content for multimodal learning chapter coming soon...
-
-This chapter will cover:
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
 - Visual encoders
-- Language models
+- Language ماڈلز
 - Action decoders
-- Training strategies
+- ٹریننگ کی حکمت عملی

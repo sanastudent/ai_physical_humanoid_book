@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module3-deployment.md
+# ماڈیول 3: Edge تعیناتی
 
-  TODO: Add Urdu translation below this comment.
--->
+Edge تعیناتی باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 3: Edge Deployment
-
-Content for edge deployment chapter coming soon...
-
-This chapter will cover:
-- Jetson platform
-- Model optimization
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- Jetson پلیٹ فارم
+- ماڈل کی بہتری
 - Real-time inference
-- Edge AI best practices
+- Edge AI بہترین طریقے

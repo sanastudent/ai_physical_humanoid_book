@@ -1,15 +1,19 @@
 {
   "title": {
-    "message": "Embodied AI Book",
+    "message": "جسمانی AI اور انسان نما روبوٹکس",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Embodied AI Logo",
+    "message": "جسمانی AI لوگو",
     "description": "The alt text of navbar logo"
   },
   "item.label.Book": {
-    "message": "Book",
+    "message": "کتاب",
     "description": "Navbar item with label Book"
+  },
+  "item.label.Preferences": {
+    "message": "ترجیحات",
+    "description": "Navbar item with label Preferences"
   },
   "item.label.GitHub": {
     "message": "GitHub",

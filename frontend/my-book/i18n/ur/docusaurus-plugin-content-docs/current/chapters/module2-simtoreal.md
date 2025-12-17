@@ -1,25 +1,9 @@
-<!--
-  Urdu Translation Placeholder
-  English source: chapters\module2-simtoreal.md
+# ماڈیول 2: Sim-to-Real منتقلی
 
-  TODO: Add Urdu translation below this comment.
--->
+Sim-to-real منتقلی باب کے لیے مواد جلد آ رہا ہے...
 
-# [Urdu Translation Required]
-
-یہاں اردو ترجمہ شامل کریں
-(Add Urdu translation here)
-
----
-
-**Original English Content (for reference):**
-
-# Module 2: Sim-to-Real Transfer
-
-Content for sim-to-real transfer chapter coming soon...
-
-This chapter will cover:
-- Reality gap challenges
+یہ باب مندرجہ ذیل موضوعات کا احاطہ کرے گا:
+- حقیقت کے فرق کے چیلنجز
 - Domain randomization
-- Transfer learning techniques
-- Real-world deployment
+- Transfer learning تکنیک
+- حقیقی دنیا میں تعیناتی

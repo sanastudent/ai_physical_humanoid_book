@@ -46,8 +46,10 @@ def extract_frontmatter_and_content(file_path: str) -> Tuple[Dict, str]:
     return frontmatter_data, content
 
 
-def translate_content_to_urdu(content: str, api_url: str = "http://localhost:8000/query") -> Optional[str]:
+def translate_content_to_urdu(content: str, api_url: str = None) -> Optional[str]:
     """Send content to Book Assistant backend API for Urdu translation."""
+    if api_url is None:
+        api_url = os.getenv("BACKEND_URL", "http://localhost:8000") + "/query"
     try:
         payload = {
             "query": f"Translate this chapter into Urdu:\n\n{content}",
