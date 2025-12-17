@@ -27,7 +27,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ selectedText = null, onClose, initialVi
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(initialVisibility);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const backendUrl = 'http://localhost:8000'; // Default backend URL
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000'; // Default backend URL
 
   useEffect(() => {
     if (selectedText) {
