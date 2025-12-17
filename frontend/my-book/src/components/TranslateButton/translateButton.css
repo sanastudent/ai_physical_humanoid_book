@@ -1,0 +1,122 @@
+.translate-container {
+  margin: 20px 0;
+}
+
+.translate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(135deg, #01411C 0%, #0A8754 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.translate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.translate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.translate-btn.loading {
+  background: linear-gradient(135deg, #555 0%, #888 100%);
+}
+
+.translate-btn.active {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background-color: #fee;
+  border-left: 4px solid #f44;
+  border-radius: 4px;
+  color: #c33;
+  font-size: 14px;
+}
+
+.close-error {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #c33;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+  line-height: 1;
+}
+
+.close-error:hover {
+  color: #a22;
+}
+
+.translated-content {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9fafb;
+  border: 2px solid #01411C;
+  border-radius: 8px;
+}
+
+.translation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #01411C 0%, #0A8754 100%);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* RTL Support for Urdu content */
+.translated-content {
+  direction: rtl;
+  text-align: right;
+}
+
+.translated-content h1,
+.translated-content h2,
+.translated-content h3,
+.translated-content h4,
+.translated-content h5,
+.translated-content h6 {
+  text-align: right;
+}
+
+/* Code blocks should remain LTR */
+.translated-content pre,
+.translated-content code {
+  direction: ltr;
+  text-align: left;
+}

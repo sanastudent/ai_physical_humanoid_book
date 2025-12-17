@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getBackendUrl } from '@site/src/utils/config';
 import './chatui.css';
 
 // Define TypeScript types
@@ -27,7 +28,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ selectedText = null, onClose, initialVi
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(initialVisibility);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000'; // Default backend URL
+  const backendUrl = getBackendUrl(); // Use safe config function
 
   useEffect(() => {
     if (selectedText) {
