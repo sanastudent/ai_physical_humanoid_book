@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend/my-book && npm install && npm run build:clean",
+  "buildCommand": "cd frontend/my-book && npm install && npm run build",
   "outputDirectory": "frontend/my-book/build",
   "installCommand": "npm install --prefix frontend/my-book",
   "framework": null,
@@ -10,10 +10,17 @@
       "NODE_VERSION": "20"
     }
   },
-  "rewrites": [
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/docs/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }

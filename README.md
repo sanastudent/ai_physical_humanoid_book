@@ -124,34 +124,49 @@ curl -X POST http://localhost:8000/select \
 
 ## Deployment
 
-### Backend (Render)
+### 🚀 Quick Deploy (Recommended)
 
-1. Create `render.yaml`:
-   ```yaml
-   services:
-     - type: web
-       name: book-rag-api
-       env: python
-       buildCommand: pip install -r requirements.txt
-       startCommand: cd src && python main.py
-   ```
+**Frontend → Vercel | Backend → Railway**
 
-2. Push to GitHub and connect to Render
+See [QUICK_DEPLOY.md](./QUICK_DEPLOY.md) for 10-minute deployment guide.
 
-### Frontend (GitHub Pages)
+### Deployment Options
 
-1. **Update Configuration**:
-   Edit `frontend/my-book/docusaurus.config.ts`:
-   - Set `url` to your GitHub Pages URL
-   - Set `organizationName` to your GitHub username
-   - Set `projectName` to your repo name
+#### Option 1: Vercel + Railway (Recommended)
+- **Frontend (Docusaurus)** → Deploy to Vercel for global CDN
+- **Backend (FastAPI)** → Deploy to Railway for persistent connections
+- **Best for**: Production apps with RAG chatbot
 
-2. **Build and Deploy**:
-   ```bash
-   cd frontend/my-book
-   npm run build
-   GIT_USER=<your-username> npm run deploy
-   ```
+📖 **Full Guide**: [VERCEL_DEPLOYMENT_GUIDE.md](./VERCEL_DEPLOYMENT_GUIDE.md)
+
+#### Option 2: GitHub Pages (Static Only)
+- **Frontend only** → Deploy static Docusaurus site
+- **No backend features**: Chatbot, authentication, personalization won't work
+- **Best for**: Documentation-only projects
+
+```bash
+cd frontend/my-book
+npm run build
+GIT_USER=<your-username> npm run deploy
+```
+
+#### Platform Comparison
+See [DEPLOYMENT_PLATFORMS_COMPARISON.md](./DEPLOYMENT_PLATFORMS_COMPARISON.md) for detailed feature comparison.
+
+### Environment Variables
+
+Copy `.env.example` to `.env` and configure:
+```bash
+cp .env.example .env
+# Add your API keys and configuration
+```
+
+Required:
+- `GOOGLE_API_KEY` - Google Gemini API
+- `ANTHROPIC_API_KEY` - Claude API
+- `QDRANT_URL` and `QDRANT_API_KEY` - Qdrant Cloud
+- `NEON_DB_URL` - Neon Postgres
+- `BETTERAUTH_SECRET` - Random 32+ char string
 
 ## API Endpoints
 
@@ -168,20 +183,32 @@ curl -X POST http://localhost:8000/select \
 
 ## Features
 
-- ✓ AI-generated book content (Docusaurus)
-- ✓ RAG-powered chatbot with citations
-- ✓ Global and selected-text QA modes
-- ✓ Streaming responses
-- ✓ Vector search with Qdrant
-- ✓ GitHub Pages deployment
-- ✓ Dark mode support
+### Core Features
+- ✅ AI-generated book content (Docusaurus)
+- ✅ RAG-powered chatbot with Gemini
+- ✅ Global and selected-text QA modes
+- ✅ Vector search with Qdrant Cloud
+- ✅ Dark mode support
+
+### Advanced Features
+- ✅ User authentication (BetterAuth + Neon)
+- ✅ Content personalization (based on user background)
+- ✅ Translation to Urdu (RTL support)
+- ✅ Multilingual i18n support
+
+### Deployment
+- ✅ Vercel deployment (frontend)
+- ✅ Railway deployment (backend)
+- ✅ GitHub Pages option (static only)
 
 ## Tech Stack
 
-- **Backend**: FastAPI, Qdrant, Anthropic Claude
-- **Frontend**: Docusaurus, React
-- **AI**: Claude for generation, OpenAI for embeddings
-- **Deployment**: Render (backend), GitHub Pages (frontend)
+- **Backend**: FastAPI, Qdrant Cloud, Google Gemini
+- **Frontend**: Docusaurus, React 19, TypeScript
+- **AI**: Google Gemini for RAG, Anthropic Claude for personalization
+- **Database**: Neon Serverless Postgres
+- **Authentication**: BetterAuth
+- **Deployment**: Vercel (frontend), Railway (backend)
 
 ## Development
 
