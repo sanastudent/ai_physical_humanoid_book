@@ -44,16 +44,16 @@ class UserService:
         # Hash password
         password_hash = hash_password(user_data.password)
 
-        # Insert user into database
+        # Insert user into database with email verification fields
         db_pool = get_db_pool()
         with db_pool.get_cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO users (email, password_hash, created_at, updated_at)
-                VALUES (%s, %s, NOW(), NOW())
-                RETURNING id, email, created_at, updated_at
+                INSERT INTO users (email, password_hash, email_verified, email_verified_at, created_at, updated_at)
+                VALUES (%s, %s, %s, %s, NOW(), NOW())
+                RETURNING id, email, email_verified, email_verified_at, created_at, updated_at
                 """,
-                (normalized_email, password_hash)
+                (normalized_email, password_hash, False, None)
             )
             user_record = cursor.fetchone()
 
@@ -63,6 +63,8 @@ class UserService:
         return UserResponse(
             id=user_record['id'],
             email=user_record['email'],
+            email_verified=user_record['email_verified'],
+            email_verified_at=user_record['email_verified_at'],
             created_at=user_record['created_at'],
             updated_at=user_record['updated_at']
         )
@@ -110,7 +112,7 @@ class UserService:
         with db_pool.get_cursor() as cursor:
             cursor.execute(
                 """
-                SELECT id, email, password_hash, created_at, updated_at
+                SELECT id, email, password_hash, email_verified, email_verified_at, created_at, updated_at
                 FROM users
                 WHERE email = %s
                 """,
@@ -128,6 +130,8 @@ class UserService:
         return UserResponse(
             id=user_record['id'],
             email=user_record['email'],
+            email_verified=user_record['email_verified'],
+            email_verified_at=user_record['email_verified_at'],
             created_at=user_record['created_at'],
             updated_at=user_record['updated_at']
         )
@@ -147,7 +151,7 @@ class UserService:
         with db_pool.get_cursor() as cursor:
             cursor.execute(
                 """
-                SELECT id, email, created_at, updated_at
+                SELECT id, email, email_verified, email_verified_at, created_at, updated_at
                 FROM users
                 WHERE id = %s
                 """,
@@ -161,6 +165,8 @@ class UserService:
         return UserResponse(
             id=user_record['id'],
             email=user_record['email'],
+            email_verified=user_record['email_verified'],
+            email_verified_at=user_record['email_verified_at'],
             created_at=user_record['created_at'],
             updated_at=user_record['updated_at']
         )
@@ -185,7 +191,7 @@ class UserService:
         with db_pool.get_cursor() as cursor:
             cursor.execute(
                 """
-                SELECT id, email, created_at, updated_at
+                SELECT id, email, email_verified, email_verified_at, created_at, updated_at
                 FROM users
                 WHERE email = %s
                 """,
@@ -199,6 +205,8 @@ class UserService:
         return UserResponse(
             id=user_record['id'],
             email=user_record['email'],
+            email_verified=user_record['email_verified'],
+            email_verified_at=user_record['email_verified_at'],
             created_at=user_record['created_at'],
             updated_at=user_record['updated_at']
         )

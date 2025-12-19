@@ -28,3 +28,54 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* RTL support for Urdu language */
+html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .navbar__items .navbar__item,
+html[dir="rtl"] .navbar__items .navbar__link {
+  margin-left: 0;
+  margin-right: var(--ifm-navbar-item-padding-horizontal);
+}
+
+html[dir="rtl"] .navbar-sidebar__item,
+html[dir="rtl"] .navbar-sidebar__items {
+  text-align: right;
+}
+
+html[dir="rtl"] .menu {
+  padding-left: 0;
+  padding-right: var(--ifm-menu-link-padding-horizontal);
+}
+
+html[dir="rtl"] .menu__list .menu__list-item .menu__link {
+  border-radius: var(--ifm-menu-link-radius) 0 0 var(--ifm-menu-link-radius);
+}
+
+html[dir="rtl"] .pagination-nav__link {
+  text-align: right;
+}
+
+html[dir="rtl"] .pagination-nav__sublabel {
+  transform: rotate(180deg);
+  display: inline-block;
+}
+
+/* RTL for code blocks and content */
+html[dir="rtl"] .markdown {
+  text-align: right;
+}
+
+html[dir="rtl"] .theme-code-block {
+  direction: ltr; /* Code should remain LTR */
+  text-align: left;
+}
+
+html[dir="rtl"] pre,
+html[dir="rtl"] code {
+  direction: ltr;
+  text-align: left;
+}

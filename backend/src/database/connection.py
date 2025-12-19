@@ -44,7 +44,7 @@ class DatabaseConnectionPool:
                 maxconn,
                 self.database_url
             )
-            print(f"✓ Database connection pool initialized (min={minconn}, max={maxconn})")
+            print(f"Database connection pool initialized (min={minconn}, max={maxconn})")
         except psycopg2.Error as e:
             raise ConnectionError(f"Failed to create database connection pool: {e}")
 
@@ -110,7 +110,7 @@ class DatabaseConnectionPool:
         """Close all connections in the pool"""
         if self.pool:
             self.pool.closeall()
-            print("✓ All database connections closed")
+            print("All database connections closed")
 
     def __del__(self):
         """Cleanup on object destruction"""

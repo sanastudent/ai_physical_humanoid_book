@@ -5,6 +5,7 @@ Validation utilities for user input (email, password, background data)
 import re
 from typing import List, Optional
 from email_validator import validate_email as email_validate, EmailNotValidError
+from passlib.context import CryptContext
 
 
 class ValidationError(Exception):
@@ -178,3 +179,21 @@ def validate_background_devices(devices: List[str]) -> None:
         for device in devices:
             if not device or not device.strip():
                 raise ValidationError("Device types list cannot contain empty values")
+
+
+# Password hashing context for bcrypt
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """
+    Verify a plain text password against a bcrypt hash
+
+    Args:
+        plain_password: Plain text password to verify
+        hashed_password: Stored bcrypt hash
+
+    Returns:
+        bool: True if password matches the hash, False otherwise
+    """
+    return pwd_context.verify(plain_password, hashed_password)

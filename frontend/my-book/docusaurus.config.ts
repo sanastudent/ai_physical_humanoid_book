@@ -36,8 +36,14 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en', 'ur'],
     localeConfigs: {
-      en: { label: 'English' },
-      ur: { label: 'اردو' },
+      en: {
+        label: 'English',
+        direction: 'ltr',
+      },
+      ur: {
+        label: 'اردو',
+        direction: 'rtl',
+      },
     },
   },
 
@@ -87,6 +93,16 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
+        {
+          to: '/signin',
+          label: 'Sign In',
+          position: 'left',
+        },
+        {
+          to: '/signup',
+          label: 'Sign Up',
+          position: 'left',
+        },
         {
           type: 'docSidebar',
           sidebarId: 'bookSidebar',

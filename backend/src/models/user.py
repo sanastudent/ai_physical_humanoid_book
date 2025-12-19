@@ -28,6 +28,8 @@ class User(UserBase):
     password_hash: str = Field(..., description="bcrypt hashed password")
     created_at: datetime = Field(..., description="Account creation timestamp")
     updated_at: datetime = Field(..., description="Last account update timestamp")
+    email_verified: bool = Field(default=False, description="Whether email has been verified")
+    email_verified_at: Optional[datetime] = Field(None, description="When email was verified")
 
     class Config:
         from_attributes = True  # For Pydantic v2 (formerly orm_mode)
@@ -38,6 +40,8 @@ class UserResponse(UserBase):
     id: UUID = Field(..., description="Unique user identifier")
     created_at: datetime = Field(..., description="Account creation timestamp")
     updated_at: datetime = Field(..., description="Last account update timestamp")
+    email_verified: bool = Field(default=False, description="Whether email has been verified")
+    email_verified_at: Optional[datetime] = Field(None, description="When email was verified")
 
     class Config:
         from_attributes = True

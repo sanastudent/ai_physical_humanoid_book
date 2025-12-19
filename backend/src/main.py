@@ -18,6 +18,7 @@ from .agents.chapter_writer_agent import ChapterWriterAgent
 from .agents.rag_agent import RAGAgent
 from .agents.api_integration_agent import APIIntegrationAgent
 from .middleware.performance import PerformanceMiddleware, get_performance_stats, get_slow_requests, is_within_performance_threshold
+from .routes import auth
 from .health.checks import (
     check_backend_health,
     check_qdrant_health,
@@ -35,6 +36,9 @@ app = FastAPI(
 
 # Add performance monitoring middleware
 app.add_middleware(PerformanceMiddleware)
+
+# Include authentication routes
+app.include_router(auth.router)
 
 # CORS configuration
 app.add_middleware(
