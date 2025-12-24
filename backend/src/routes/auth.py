@@ -70,10 +70,7 @@ async def register(request: Request, response: Response):
         name = body.get('name', None)
 
         if not email or not password:
-            raise HTTPException(status_code=400, detail={
-                "error": "ValidationFailed",
-                "message": "Email and password are required"
-            })
+            raise HTTPException(status_code=400, detail="Email and password are required")
 
         # Validate email format
         validated_email = validate_email(email)
@@ -84,10 +81,7 @@ async def register(request: Request, response: Response):
         # Check if user already exists
         existing_user = await get_user_by_email(validated_email)
         if existing_user:
-            raise HTTPException(status_code=400, detail={
-                "error": "RegistrationFailed",
-                "message": "Email already registered"
-            })
+            raise HTTPException(status_code=400, detail="Email already registered")
 
         # Create new user
         user_data = {
@@ -144,21 +138,14 @@ async def register(request: Request, response: Response):
         return auth_response
 
     except ValidationError as e:
-        raise HTTPException(status_code=400, detail={
-            "error": "ValidationFailed",
-            "message": str(e)
-        })
+        raise HTTPException(status_code=400, detail=str(e))
     except ValueError as e:
-        raise HTTPException(status_code=400, detail={
-            "error": "ValidationFailed",
-            "message": str(e)
-        })
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         print(f"Registration error: {str(e)}")
-        raise HTTPException(status_code=500, detail={
-            "error": "RegistrationFailed",
-            "message": "Failed to register user"
-        })
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to register user: {str(e)}")
 
 
 @router.post("/login", response_model=Dict[str, Any])
@@ -186,10 +173,7 @@ async def login(request: Request, response: Response):
         remember = body.get('remember', False)
 
         if not email or not password:
-            raise HTTPException(status_code=400, detail={
-                "error": "ValidationFailed",
-                "message": "Email and password are required"
-            })
+            raise HTTPException(status_code=400, detail="Email and password are required")
 
         # Validate email format
         validated_email = validate_email(email)
@@ -197,18 +181,12 @@ async def login(request: Request, response: Response):
         # Find user by email
         user = await get_user_by_email(validated_email)
         if not user:
-            raise HTTPException(status_code=400, detail={
-                "error": "LoginFailed",
-                "message": "Invalid email or password"
-            })
+            raise HTTPException(status_code=400, detail="Invalid email or password")
 
         # Verify password (using the existing validation function)
         from ..utils.validators import verify_password
         if not verify_password(password, user['password_hash']):
-            raise HTTPException(status_code=400, detail={
-                "error": "LoginFailed",
-                "message": "Invalid email or password"
-            })
+            raise HTTPException(status_code=400, detail="Invalid email or password")
 
         # Create session for the user
         session_data = {
@@ -255,16 +233,12 @@ async def login(request: Request, response: Response):
         return auth_response
 
     except ValidationError as e:
-        raise HTTPException(status_code=400, detail={
-            "error": "ValidationFailed",
-            "message": str(e)
-        })
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         print(f"Login error: {str(e)}")
-        raise HTTPException(status_code=500, detail={
-            "error": "LoginFailed",
-            "message": "Failed to login"
-        })
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to login: {str(e)}")
 
 
 @router.get("/session")

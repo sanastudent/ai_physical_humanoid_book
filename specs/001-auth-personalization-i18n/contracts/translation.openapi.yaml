@@ -1,0 +1,177 @@
+openapi: 3.0.3
+info:
+  title: Translation API
+  description: |
+    AI-driven content translation for multi-language support.
+    Primary target is Urdu (اردو), extensible to other languages.
+  version: 1.0.0
+  contact:
+    name: AI Book Platform
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server
+
+tags:
+  - name: Translation
+    description: Content translation operations
+
+paths:
+  /translate:
+    post:
+      tags:
+        - Translation
+      summary: Translate chapter content
+      description: |
+        Translate chapter content to target language using AI.
+
+        Translation features:
+        - Preserves markdown formatting (headers, lists, code blocks)
+        - Keeps technical terms in original language (ROS, Gazebo, Python, etc.)
+        - Does NOT translate code examples
+        - Maintains citation structure for RAG compatibility
+
+        Supported languages:
+        - ur: Urdu (اردو) - Primary target
+        - ar: Arabic (العربية)
+        - es: Spanish (Español)
+        - fr: French (Français)
+        - de: German (Deutsch)
+      operationId: translateContent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationRequest'
+      responses:
+        '200':
+          description: Translation completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslationResponse'
+        '400':
+          description: Bad request (validation errors)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                empty_content:
+                  value:
+                    error: content cannot be empty
+                unsupported_language:
+                  value:
+                    error: target_language must be one of ur, ar, es, fr, de
+        '500':
+          description: Internal server error (AI service failure)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Translation service temporarily unavailable
+
+components:
+  schemas:
+    TranslationRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          example: |
+            # Introduction to ROS 2
+
+            ROS 2 (Robot Operating System 2) is a flexible framework for writing robot software.
+
+            ```python
+            import rclpy
+            from rclpy.node import Node
+            ```
+          description: Original content in markdown format
+        target_language:
+          type: string
+          enum: [ur, ar, es, fr, de]
+          example: ur
+          description: Target language code (ur=Urdu, ar=Arabic, es=Spanish, fr=French, de=German)
+        chapter_id:
+          type: string
+          example: chapter-01-introduction
+          description: Unique chapter identifier (for caching purposes, optional)
+        preserve_code_blocks:
+          type: boolean
+          default: true
+          description: If true, code blocks are NOT translated
+        preserve_technical_terms:
+          type: boolean
+          default: true
+          description: If true, technical terms (ROS, Gazebo, Python, etc.) remain in English
+      required:
+        - content
+        - target_language
+
+    TranslationResponse:
+      type: object
+      properties:
+        translated_content:
+          type: string
+          example: |
+            # ROS 2 کا تعارف
+
+            ROS 2 (Robot Operating System 2) روبوٹ سافٹ ویئر لکھنے کے لیے ایک لچکدار فریم ورک ہے۔
+
+            ```python
+            import rclpy
+            from rclpy.node import Node
+            ```
+          description: Translated content in markdown format
+        target_language:
+          type: string
+          enum: [ur, ar, es, fr, de]
+          example: ur
+          description: Target language code
+        source_language:
+          type: string
+          example: en
+          description: Detected or assumed source language
+        processing_time_ms:
+          type: number
+          example: 3125.67
+          description: AI processing time in milliseconds
+        model_used:
+          type: string
+          example: gpt-4
+          description: AI model used for translation
+        cached:
+          type: boolean
+          example: false
+          description: Whether result was served from cache
+        preserved_elements:
+          type: object
+          properties:
+            code_blocks_count:
+              type: integer
+              example: 1
+              description: Number of code blocks preserved
+            technical_terms_count:
+              type: integer
+              example: 5
+              description: Number of technical terms preserved
+          description: Statistics about preserved elements
+      required:
+        - translated_content
+        - target_language
+        - processing_time_ms
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Error message description
+      required:
+        - error

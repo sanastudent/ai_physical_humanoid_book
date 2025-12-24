@@ -1,0 +1,266 @@
+openapi: 3.0.3
+info:
+  title: User Background API
+  description: |
+    User profile background information for personalization.
+    Collects software and hardware experience for content adaptation.
+  version: 1.0.0
+  contact:
+    name: AI Book Platform
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server
+
+tags:
+  - name: Background
+    description: User background profile operations
+
+paths:
+  /background:
+    get:
+      tags:
+        - Background
+      summary: Get user background profile
+      description: Retrieve the authenticated user's software and hardware background data.
+      operationId: getBackground
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Background profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundProfile'
+        '401':
+          description: Unauthorized (user not authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found (user has not completed background questions)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Background profile not found
+
+    post:
+      tags:
+        - Background
+      summary: Create or update user background profile
+      description: |
+        Submit software and hardware background information for personalization.
+        Can be called multiple times to update profile.
+      operationId: updateBackground
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundInput'
+      responses:
+        '200':
+          description: Background profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundProfile'
+        '201':
+          description: Background profile created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundProfile'
+        '400':
+          description: Bad request (validation errors)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                invalid_experience:
+                  value:
+                    error: experience_level must be one of beginner, intermediate, advanced
+        '401':
+          description: Unauthorized (user not authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: session_token
+      description: Session token stored in HTTP-only cookie
+
+  schemas:
+    BackgroundProfile:
+      type: object
+      properties:
+        software:
+          $ref: '#/components/schemas/SoftwareBackground'
+        hardware:
+          $ref: '#/components/schemas/HardwareBackground'
+      required:
+        - software
+        - hardware
+
+    BackgroundInput:
+      type: object
+      properties:
+        software:
+          $ref: '#/components/schemas/SoftwareBackgroundInput'
+        hardware:
+          $ref: '#/components/schemas/HardwareBackgroundInput'
+      required:
+        - software
+        - hardware
+
+    SoftwareBackground:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 770e8400-e29b-41d4-a716-446655440002
+        user_id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        experience_level:
+          type: string
+          enum: [beginner, intermediate, advanced]
+          example: intermediate
+          description: Software development experience level
+        preferred_languages:
+          type: array
+          items:
+            type: string
+          example: ["Python", "JavaScript", "TypeScript"]
+          description: Preferred programming languages
+        preferred_frameworks:
+          type: array
+          items:
+            type: string
+          example: ["React", "FastAPI", "Node.js"]
+          description: Preferred software frameworks
+        created_at:
+          type: string
+          format: date-time
+          example: 2025-12-18T10:05:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2025-12-18T10:05:00Z
+      required:
+        - id
+        - user_id
+        - experience_level
+
+    SoftwareBackgroundInput:
+      type: object
+      properties:
+        experience_level:
+          type: string
+          enum: [beginner, intermediate, advanced]
+          example: intermediate
+          description: Software development experience level
+        preferred_languages:
+          type: array
+          items:
+            type: string
+          example: ["Python", "JavaScript", "TypeScript"]
+          description: Preferred programming languages (optional)
+        preferred_frameworks:
+          type: array
+          items:
+            type: string
+          example: ["React", "FastAPI", "Node.js"]
+          description: Preferred software frameworks (optional)
+      required:
+        - experience_level
+
+    HardwareBackground:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 880e8400-e29b-41d4-a716-446655440003
+        user_id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        experience_level:
+          type: string
+          enum: [beginner, intermediate, advanced]
+          example: advanced
+          description: Hardware/robotics experience level
+        preferred_platforms:
+          type: array
+          items:
+            type: string
+          example: ["NVIDIA Jetson", "Raspberry Pi", "Arduino"]
+          description: Preferred hardware platforms
+        device_types:
+          type: array
+          items:
+            type: string
+          example: ["Embedded", "Mobile", "IoT"]
+          description: Device types of interest
+        created_at:
+          type: string
+          format: date-time
+          example: 2025-12-18T10:05:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2025-12-18T10:05:00Z
+      required:
+        - id
+        - user_id
+        - experience_level
+
+    HardwareBackgroundInput:
+      type: object
+      properties:
+        experience_level:
+          type: string
+          enum: [beginner, intermediate, advanced]
+          example: advanced
+          description: Hardware/robotics experience level
+        preferred_platforms:
+          type: array
+          items:
+            type: string
+          example: ["NVIDIA Jetson", "Raspberry Pi", "Arduino"]
+          description: Preferred hardware platforms (optional)
+        device_types:
+          type: array
+          items:
+            type: string
+          example: ["Embedded", "Mobile", "IoT"]
+          description: Device types of interest (optional)
+      required:
+        - experience_level
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Error message description
+      required:
+        - error

@@ -1,0 +1,289 @@
+openapi: 3.0.3
+info:
+  title: Authentication API
+  description: |
+    User authentication endpoints for signup, signin, signout, and session management.
+    Compatible with Better-Auth frontend library.
+  version: 1.0.0
+  contact:
+    name: AI Book Platform
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server
+
+tags:
+  - name: Authentication
+    description: User authentication operations
+
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: Create new user account
+      description: |
+        Register a new user with email and password. Password must meet strength requirements:
+        - Minimum 8 characters
+        - At least 1 uppercase letter
+        - At least 1 lowercase letter
+        - At least 1 digit
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                  description: User email address (must be unique)
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: SecurePass123
+                  description: User password (min 8 chars, 1 uppercase, 1 lowercase, 1 digit)
+      responses:
+        '201':
+          description: User account created successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: session_token=abc123...; HttpOnly; Secure; SameSite=Lax; Max-Age=86400
+              description: Session cookie for authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Bad request (validation errors)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                weak_password:
+                  value:
+                    error: Password must be at least 8 characters with 1 uppercase, 1 lowercase, and 1 digit
+                invalid_email:
+                  value:
+                    error: Invalid email format
+        '409':
+          description: Conflict (email already registered)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Email already registered
+
+  /auth/signin:
+    post:
+      tags:
+        - Authentication
+      summary: Sign in existing user
+      description: Authenticate user with email and password. Optionally enable "remember me" for extended session.
+      operationId: signin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: SecurePass123
+                remember_me:
+                  type: boolean
+                  default: false
+                  description: If true, session lasts 30 days instead of 24 hours
+      responses:
+        '200':
+          description: User authenticated successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: session_token=abc123...; HttpOnly; Secure; SameSite=Lax; Max-Age=86400
+              description: Session cookie for authentication (24h default, 30d if remember_me=true)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Unauthorized (invalid credentials)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Invalid email or password
+
+  /auth/signout:
+    post:
+      tags:
+        - Authentication
+      summary: Sign out current session
+      description: Invalidate the current session. User must sign in again.
+      operationId: signout
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Successfully signed out
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: session_token=; Max-Age=0
+              description: Cookie cleared
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully signed out
+        '401':
+          description: Unauthorized (no valid session)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/session:
+    get:
+      tags:
+        - Authentication
+      summary: Check current session status
+      description: Verify if the current session is valid and get user information.
+      operationId: getSession
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Valid session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authenticated:
+                    type: boolean
+                    example: true
+                  user:
+                    $ref: '#/components/schemas/User'
+                  session:
+                    type: object
+                    properties:
+                      expires_at:
+                        type: string
+                        format: date-time
+                        example: 2025-12-19T10:00:00Z
+        '401':
+          description: Unauthorized (no valid session)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authenticated:
+                    type: boolean
+                    example: false
+
+    delete:
+      tags:
+        - Authentication
+      summary: Sign out from all devices
+      description: Invalidate all sessions for the current user (logout everywhere).
+      operationId: deleteAllSessions
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: All sessions invalidated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Signed out from all devices
+        '401':
+          description: Unauthorized (no valid session)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: session_token
+      description: Session token stored in HTTP-only cookie
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        message:
+          type: string
+          example: Successfully signed in
+      required:
+        - user
+        - message
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        created_at:
+          type: string
+          format: date-time
+          example: 2025-12-18T10:00:00Z
+      required:
+        - id
+        - email
+        - created_at
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Error message description
+      required:
+        - error

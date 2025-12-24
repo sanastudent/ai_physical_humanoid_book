@@ -98,9 +98,5 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-# Validate configuration on import
-try:
-    AuthConfig.validate_config()
-except ValueError as e:
-    print(f"⚠️  Auth configuration warning: {e}")
-    print("Please ensure NEON_DB_URL and BETTERAUTH_SECRET are set in .env file")
+# Validation is optional on import - will be checked at runtime when needed
+# This prevents blocking startup when environment variables are not yet loaded

@@ -1,0 +1,183 @@
+openapi: 3.0.3
+info:
+  title: Personalization API
+  description: |
+    AI-driven content personalization based on user background profile.
+    Adapts chapter content to user's software and hardware experience level.
+  version: 1.0.0
+  contact:
+    name: AI Book Platform
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server
+
+tags:
+  - name: Personalization
+    description: Content personalization operations
+
+paths:
+  /personalize:
+    post:
+      tags:
+        - Personalization
+      summary: Personalize chapter content
+      description: |
+        Generate personalized version of chapter content based on authenticated user's profile.
+        Requires user to have completed background questions.
+
+        Personalization adapts:
+        - Complexity level based on software/hardware experience
+        - Examples and analogies based on preferred languages/frameworks/platforms
+        - Explanations based on learning style preference
+
+        Note: Personalization is runtime-only and does NOT modify source files.
+      operationId: personalizeContent
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalizationRequest'
+      responses:
+        '200':
+          description: Personalized content generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizationResponse'
+        '400':
+          description: Bad request (validation errors)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                empty_content:
+                  value:
+                    error: chapter_content cannot be empty
+                invalid_learning_style:
+                  value:
+                    error: learning_style must be one of visual, auditory, reading_writing, kinesthetic, multimodal
+        '401':
+          description: Unauthorized (user not authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found (user background profile missing)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: User background profile not found. Please complete background questions first.
+        '500':
+          description: Internal server error (AI service failure)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Personalization service temporarily unavailable
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: session_token
+      description: Session token stored in HTTP-only cookie
+
+  schemas:
+    PersonalizationRequest:
+      type: object
+      properties:
+        chapter_content:
+          type: string
+          example: |
+            # Introduction to ROS 2
+
+            ROS 2 (Robot Operating System 2) is a flexible framework for writing robot software...
+          description: Original chapter content in markdown format
+        chapter_id:
+          type: string
+          example: chapter-01-introduction
+          description: Unique chapter identifier (for caching purposes)
+        learning_style:
+          type: string
+          enum: [visual, auditory, reading_writing, kinesthetic, multimodal]
+          default: multimodal
+          description: User's preferred learning style (optional, defaults to multimodal)
+      required:
+        - chapter_content
+        - chapter_id
+
+    PersonalizationResponse:
+      type: object
+      properties:
+        personalized_content:
+          type: string
+          example: |
+            # Introduction to ROS 2
+
+            ROS 2 (Robot Operating System 2) is a flexible framework for writing robot software.
+            Since you're familiar with Python, you'll find ROS 2's Python API (rclpy) intuitive...
+          description: Personalized chapter content in markdown format
+        personalization_applied:
+          type: object
+          properties:
+            software_level:
+              type: string
+              enum: [beginner, intermediate, advanced]
+              example: intermediate
+            hardware_level:
+              type: string
+              enum: [beginner, intermediate, advanced]
+              example: advanced
+            learning_style:
+              type: string
+              enum: [visual, auditory, reading_writing, kinesthetic, multimodal]
+              example: multimodal
+            preferred_languages:
+              type: array
+              items:
+                type: string
+              example: ["Python", "JavaScript"]
+            preferred_frameworks:
+              type: array
+              items:
+                type: string
+              example: ["React", "FastAPI"]
+          description: Personalization parameters applied
+        processing_time_ms:
+          type: number
+          example: 4523.45
+          description: AI processing time in milliseconds
+        model_used:
+          type: string
+          example: gemini-pro
+          description: AI model used for personalization
+        cached:
+          type: boolean
+          example: false
+          description: Whether result was served from cache
+      required:
+        - personalized_content
+        - personalization_applied
+        - processing_time_ms
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Error message description
+      required:
+        - error

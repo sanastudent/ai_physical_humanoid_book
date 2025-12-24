@@ -9,7 +9,24 @@ from dotenv import load_dotenv
 from typing import Dict
 import json
 
-from .schema import EmbedRequest, QueryRequest, QueryResponse, HealthStatus
+# Import from the main schema.py file by using the sys.modules approach
+import importlib.util
+import sys
+from pathlib import Path
+
+# Get the path to the schema.py file specifically (not the schema directory)
+schema_spec = importlib.util.spec_from_file_location(
+    "schema",
+    Path(__file__).parent / "schema.py"
+)
+schema_module = importlib.util.module_from_spec(schema_spec)
+schema_spec.loader.exec_module(schema_module)
+
+# Import required classes
+EmbedRequest = schema_module.EmbedRequest
+QueryRequest = schema_module.QueryRequest
+QueryResponse = schema_module.QueryResponse
+HealthStatus = schema_module.HealthStatus
 from .qdrant_manager import QdrantManager
 from .embed import EmbeddingGenerator
 from .rag import RAGEngine
@@ -18,7 +35,7 @@ from .agents.chapter_writer_agent import ChapterWriterAgent
 from .agents.rag_agent import RAGAgent
 from .agents.api_integration_agent import APIIntegrationAgent
 from .middleware.performance import PerformanceMiddleware, get_performance_stats, get_slow_requests, is_within_performance_threshold
-from .routes import auth
+from .routes import auth, background, translate
 from .health.checks import (
     check_backend_health,
     check_qdrant_health,
@@ -39,6 +56,12 @@ app.add_middleware(PerformanceMiddleware)
 
 # Include authentication routes
 app.include_router(auth.router)
+
+# Include background routes
+app.include_router(background.router)
+
+# Include translation routes
+app.include_router(translate.router)
 
 # CORS configuration
 app.add_middleware(

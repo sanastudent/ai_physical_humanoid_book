@@ -1,0 +1,21 @@
+module2-intro.md|# ماڈیول 2: Digital Twin Technology کا تعارف
+
+## Digital Twin کیا ہے؟
+
+Digital Twin ایک virtual نقل ہے جو حقیقی نظام کی عکاسی کرتی ہے۔
+
+---
+
+**تصویر کی جگہ**: [Digital twin concept diagram]
+---
+module2-gazebo.md|# ماڈیول 2: Gazebo Simulation
+
+Content جلد شامل کیا جائے گا۔
+---
+module2-unity.md|# ماڈیول 2: Unity for Robotics
+
+Content جلد شامل کیا جائے گا۔
+---
+module2-simtoreal.md|# ماڈیول 2: Sim-to-Real Transfer
+
+Content جلد شامل کیا جائے گا۔

@@ -40,9 +40,10 @@ const config: Config = {
         label: 'English',
         direction: 'ltr',
       },
-      ur: {
+      'ur': {
         label: 'اردو',
         direction: 'rtl',
+        htmlLang: 'ur',
       },
     },
   },
@@ -111,11 +112,6 @@ const config: Config = {
         },
         {
           type: 'localeDropdown',
-          position: 'right',
-        },
-        {
-          to: '/preferences',
-          label: 'Preferences',
           position: 'right',
         },
         {

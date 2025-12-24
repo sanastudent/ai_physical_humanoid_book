@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ChatUI from '@site/src/components/ChatUI';
 import { AuthProvider } from '@site/src/contexts/AuthProvider';
-import { PersonalizationProvider } from '@site/src/components/PersonalizationProvider';
-import { SimplePersonalizationProvider } from '@site/src/components/SimplePersonalizationProvider';
 
 export default function Root({ children }) {
   const [selectedText, setSelectedText] = useState(null);
@@ -37,16 +35,12 @@ export default function Root({ children }) {
 
   return (
     <AuthProvider>
-      <PersonalizationProvider>
-        <SimplePersonalizationProvider>
-          {children}
-          <ChatUI
-            selectedText={selectedText}
-            onClose={handleCloseChat}
-            initialVisibility={showChat}
-          />
-        </SimplePersonalizationProvider>
-      </PersonalizationProvider>
+      {children}
+      <ChatUI
+        selectedText={selectedText}
+        onClose={handleCloseChat}
+        initialVisibility={showChat}
+      />
     </AuthProvider>
   );
 }

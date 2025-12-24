@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -X POST http://localhost:8004/query -H \"Content-Type: application/json\" -d \"{\"\"query\"\": \"\"What is this book about?\"\"}\" -s)",
+      "Bash(python -m json.tool)"
+    ]
+  }
+}

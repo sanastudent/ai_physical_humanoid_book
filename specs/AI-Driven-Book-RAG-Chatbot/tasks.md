@@ -3,6 +3,7 @@
 description: "Task list for AI-Driven Book + RAG Chatbot feature implementation (Updated for OpenAI Agents SDK)"
 ---
 
+
 # Tasks: AI-Driven-Book-RAG-Chatbot
 
 **Input**: Design documents from `/specs/AI-Driven-Book-RAG-Chatbot/`

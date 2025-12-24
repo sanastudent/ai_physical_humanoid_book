@@ -1,0 +1,353 @@
+openapi: 3.0.3
+info:
+  title: BetterAuth-compatible Authentication API
+  description: |
+    User authentication endpoints compatible with BetterAuth frontend library.
+    Supports standard signup, signin, session management, and user verification flows.
+  version: 1.0.0
+  contact:
+    name: AI Book Platform
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server
+
+tags:
+  - name: Authentication
+    description: User authentication operations
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register new user account (BetterAuth-compatible)
+      description: |
+        Register a new user with email and password. Password must meet strength requirements:
+        - Minimum 8 characters
+        - At least 1 uppercase letter
+        - At least 1 lowercase letter
+        - At least 1 digit
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                  description: User email address (must be unique)
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: SecurePass123
+                  description: User password (min 8 chars, 1 uppercase, 1 lowercase, 1 digit)
+                name:
+                  type: string
+                  example: "John Doe"
+                  description: User's display name (optional)
+      responses:
+        '201':
+          description: User account created successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: "authjs.session-token=abc123...; Path=/; HttpOnly; Secure; SameSite=Lax"
+              description: BetterAuth-compatible session cookie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Bad request (validation errors)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                weak_password:
+                  value:
+                    error: Password must be at least 8 characters with 1 uppercase, 1 lowercase, and 1 digit
+                invalid_email:
+                  value:
+                    error: Invalid email format
+                duplicate_email:
+                  value:
+                    error: Email already registered
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login existing user (BetterAuth-compatible)
+      description: Authenticate user with email and password. Creates BetterAuth-compatible session.
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: SecurePass123
+                remember:
+                  type: boolean
+                  default: false
+                  description: If true, session lasts longer (30 days instead of 24 hours)
+      responses:
+        '200':
+          description: User authenticated successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: "authjs.session-token=abc123...; Path=/; HttpOnly; Secure; SameSite=Lax"
+              description: BetterAuth-compatible session cookie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials or bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Invalid email or password
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/session:
+    get:
+      tags:
+        - Authentication
+      summary: Get current session
+      description: Verify if the current session is valid and get user information.
+      operationId: getSession
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Valid session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '401':
+          description: Unauthorized (no valid session)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 401
+                  error:
+                    type: string
+                    example: Unauthorized
+
+    delete:
+      tags:
+        - Authentication
+      summary: Sign out (end session)
+      description: Invalidate the current session. User must sign in again.
+      operationId: signOut
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Successfully signed out
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: "authjs.session-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+              description: Session cookie cleared
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: Successfully signed out
+        '401':
+          description: Unauthorized (no valid session)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 401
+                  error:
+                    type: string
+                    example: Unauthorized
+
+  /auth/user:
+    get:
+      tags:
+        - Authentication
+      summary: Get current user
+      description: Get information about the currently authenticated user.
+      operationId: getCurrentUser
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Current user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized (no valid session)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 401
+                  error:
+                    type: string
+                    example: Unauthorized
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: authjs.session-token
+      description: BetterAuth-compatible session token stored in HTTP-only cookie
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        session:
+          $ref: '#/components/schemas/Session'
+      required:
+        - user
+        - session
+
+    SessionResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        session:
+          $ref: '#/components/schemas/Session'
+      nullable: true  # null when no session exists
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        emailVerified:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2025-12-18T10:00:00.000Z"
+        name:
+          type: string
+          nullable: true
+          example: "John Doe"
+        image:
+          type: string
+          nullable: true
+          example: "https://example.com/avatar.jpg"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2025-12-18T10:00:00.000Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2025-12-18T10:00:00.000Z"
+      required:
+        - id
+        - email
+        - createdAt
+        - updatedAt
+
+    Session:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 660e8400-e29b-41d4-a716-446655440001
+        userId:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        expires:
+          type: string
+          format: date-time
+          example: "2025-12-19T10:00:00.000Z"
+        sessionToken:
+          type: string
+          example: "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+      required:
+        - id
+        - userId
+        - expires
+        - sessionToken
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Error message description
+      required:
+        - error
