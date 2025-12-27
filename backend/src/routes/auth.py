@@ -1,225 +1,431 @@
 """
-Authentication API Routes - Signup, Signin, Signout, Session
+BetterAuth-Compatible Authentication API Routes
+Implements BetterAuth-compatible endpoints for signup, signin, signout, session validation
 """
-
-from fastapi import APIRouter, HTTPException, Response, Cookie, Depends
-from typing import Optional
+from fastapi import APIRouter, HTTPException, Response, Cookie, Request
+from typing import Optional, Dict, Any
 from uuid import UUID
+import secrets
+from datetime import datetime, timedelta
 
-from ..models.user import UserCreate, UserResponse
-from ..services.user_service import UserService
-from ..services.session_service import SessionService
+from ..auth.better_auth_adapter import (
+    create_new_user,
+    get_user_by_email,
+    create_new_session,
+    get_session_by_token,
+    remove_session,
+    remove_user_sessions
+)
 from ..config.auth_config import AuthConfig
-from ..utils.validators import ValidationError
-from ..middleware.auth_middleware import require_authentication
+from ..utils.validators import validate_email, validate_password_strength, ValidationError
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
 
-class SignupRequest(UserCreate):
-    """Signup request model (email + password)"""
-    pass
+class RegisterRequest:
+    """Registration request model"""
+    def __init__(self, email: str, password: str, name: Optional[str] = None):
+        self.email = email
+        self.password = password
+        self.name = name
 
 
-class SigninRequest(UserCreate):
-    """Signin request model (email + password)"""
-    remember_me: bool = False
+class LoginRequest:
+    """Login request model"""
+    def __init__(self, email: str, password: str, remember: bool = False):
+        self.email = email
+        self.password = password
+        self.remember = remember
 
 
-class AuthResponse(UserResponse):
-    """Authentication response with user data"""
-    pass
+class AuthResponse:
+    """Authentication response model"""
+    def __init__(self, user: Dict[str, Any], session: Dict[str, Any]):
+        self.user = user
+        self.session = session
 
 
-@router.post("/signup", response_model=AuthResponse, status_code=201)
-async def signup(request: SignupRequest, response: Response):
+@router.post("/register", response_model=Dict[str, Any])
+async def register(request: Request, response: Response):
     """
-    Create a new user account (Step 1 of signup flow)
-
-    **Flow:**
-    1. User submits email and password
-    2. Backend validates and creates user account
-    3. Backend creates session and returns session cookie
-    4. Frontend redirects to background questions (Step 2)
+    Register a new user with BetterAuth-compatible endpoint
 
     **Request Body:**
-    - email: Valid email address (RFC 5322)
-    - password: Min 8 chars, 1 uppercase, 1 lowercase, 1 digit
+    - email: Valid email address
+    - password: User password (min 8 chars, 1 uppercase, 1 lowercase, 1 digit)
+    - name: Optional user name
 
     **Response:**
-    - 201: User created successfully, session cookie set
-    - 400: Validation error (invalid email, weak password, duplicate email)
-    - 500: Server error
+    - Sets BetterAuth-compatible session cookie
+    - Returns user and session information
     """
     try:
-        # Create user account
-        user = UserService.create_user(request)
+        # Parse JSON from request
+        import json
+        body_bytes = await request.body()
+        body = json.loads(body_bytes.decode('utf-8'))
 
-        # Create session for new user
-        session = SessionService.create_session(user.id, remember_me=False)
+        email = body.get('email')
+        password = body.get('password')
+        name = body.get('name', None)
 
-        # Set session cookie
+        if not email or not password:
+            raise HTTPException(status_code=400, detail="Email and password are required")
+
+        # Validate email format
+        validated_email = validate_email(email)
+
+        # Validate password strength
+        validate_password_strength(password)
+
+        # Check if user already exists
+        existing_user = await get_user_by_email(validated_email)
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Email already registered")
+
+        # Create new user
+        user_data = {
+            'email': validated_email,
+            'password': password,
+            'name': name,
+            'email_verified': False  # Will be verified separately
+        }
+
+        user = await create_new_user(user_data)
+
+        # Create session for the new user
+        session_data = {
+            'user_id': str(user['id']),
+            'expires_at': datetime.utcnow() + timedelta(days=30 if body.get('remember', False) else 1),
+            'session_type': 'betterauth',
+            'provider_id': 'credentials'
+        }
+
+        session = await create_new_session(session_data)
+
+        # Set BetterAuth-compatible session cookie
+        cookie_value = session['token']
+        max_age = 30 * 24 * 3600 if body.get('remember', False) else 24 * 3600  # 30 days or 24 hours
+
         response.set_cookie(
-            key=AuthConfig.COOKIE_NAME,
-            value=session.token,
-            httponly=AuthConfig.COOKIE_HTTPONLY,
-            secure=AuthConfig.COOKIE_SECURE,
+            key="authjs.session-token",  # BetterAuth standard cookie name
+            value=cookie_value,
+            httponly=True,
+            secure=AuthConfig.COOKIE_SECURE,  # Set to False for development without HTTPS
             samesite=AuthConfig.COOKIE_SAMESITE,
-            max_age=AuthConfig.SESSION_EXPIRE_HOURS * 3600  # Convert hours to seconds
+            max_age=max_age,
+            path="/"
         )
 
-        return user
+        # Return BetterAuth-compatible response
+        auth_response = {
+            "user": {
+                "id": str(user['id']),
+                "email": user['email'],
+                "emailVerified": user['email_verified_at'],
+                "name": name,
+                "createdAt": user['created_at'].isoformat() if user['created_at'] else None,
+                "updatedAt": user['updated_at'].isoformat() if user['updated_at'] else None
+            },
+            "session": {
+                "id": str(session['id']),
+                "userId": str(session['user_id']),
+                "expires": session['expires_at'].isoformat(),
+                "sessionToken": session['token']
+            }
+        }
+
+        return auth_response
 
     except ValidationError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        print(f"Signup error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to create account")
+        print(f"Registration error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to register user: {str(e)}")
 
 
-@router.post("/signin", response_model=AuthResponse)
-async def signin(request: SigninRequest, response: Response):
+@router.post("/login", response_model=Dict[str, Any])
+async def login(request: Request, response: Response):
     """
-    Sign in with email and password
+    Login existing user with BetterAuth-compatible endpoint
 
     **Request Body:**
     - email: User's email address
     - password: User's password
-    - remember_me: Optional, extends session to 30 days (default: false/24 hours)
+    - remember: Optional, extend session duration if true
 
     **Response:**
-    - 200: Signed in successfully, session cookie set
-    - 401: Invalid credentials
-    - 500: Server error
+    - Sets BetterAuth-compatible session cookie
+    - Returns user and session information
     """
     try:
-        # Authenticate user
-        user = UserService.authenticate_user(request.email, request.password)
+        # Parse JSON from request
+        import json
+        body_bytes = await request.body()
+        body = json.loads(body_bytes.decode('utf-8'))
 
+        email = body.get('email')
+        password = body.get('password')
+        remember = body.get('remember', False)
+
+        if not email or not password:
+            raise HTTPException(status_code=400, detail="Email and password are required")
+
+        # Validate email format
+        validated_email = validate_email(email)
+
+        # Find user by email
+        user = await get_user_by_email(validated_email)
         if not user:
-            raise HTTPException(status_code=401, detail="Invalid email or password")
+            raise HTTPException(status_code=400, detail="Invalid email or password")
 
-        # Create session
-        session = SessionService.create_session(user.id, remember_me=request.remember_me)
+        # Verify password (using the existing validation function)
+        from ..utils.validators import verify_password
+        if not verify_password(password, user['password_hash']):
+            raise HTTPException(status_code=400, detail="Invalid email or password")
 
-        # Set session cookie with appropriate expiration
-        max_age = (
-            AuthConfig.SESSION_EXPIRE_DAYS_REMEMBER * 24 * 3600
-            if request.remember_me
-            else AuthConfig.SESSION_EXPIRE_HOURS * 3600
-        )
+        # Create session for the user
+        session_data = {
+            'user_id': str(user['id']),
+            'expires_at': datetime.utcnow() + timedelta(days=30 if remember else 1),
+            'session_type': 'betterauth',
+            'provider_id': 'credentials'
+        }
+
+        session = await create_new_session(session_data)
+
+        # Set BetterAuth-compatible session cookie
+        cookie_value = session['token']
+        max_age = 30 * 24 * 3600 if remember else 24 * 3600  # 30 days or 24 hours
 
         response.set_cookie(
-            key=AuthConfig.COOKIE_NAME,
-            value=session.token,
-            httponly=AuthConfig.COOKIE_HTTPONLY,
-            secure=AuthConfig.COOKIE_SECURE,
+            key="authjs.session-token",  # BetterAuth standard cookie name
+            value=cookie_value,
+            httponly=True,
+            secure=AuthConfig.COOKIE_SECURE,  # Set to False for development without HTTPS
             samesite=AuthConfig.COOKIE_SAMESITE,
-            max_age=max_age
+            max_age=max_age,
+            path="/"
         )
 
-        return user
+        # Return BetterAuth-compatible response
+        auth_response = {
+            "user": {
+                "id": str(user['id']),
+                "email": user['email'],
+                "emailVerified": user['email_verified_at'],
+                "name": body.get('name'),  # Could be None if not provided
+                "createdAt": user['created_at'].isoformat() if user['created_at'] else None,
+                "updatedAt": user['updated_at'].isoformat() if user['updated_at'] else None
+            },
+            "session": {
+                "id": str(session['id']),
+                "userId": str(session['user_id']),
+                "expires": session['expires_at'].isoformat(),
+                "sessionToken": session['token']
+            }
+        }
 
-    except HTTPException:
-        raise
+        return auth_response
+
+    except ValidationError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        print(f"Signin error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to sign in")
+        print(f"Login error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to login: {str(e)}")
 
 
-@router.post("/signout", status_code=204)
-async def signout(
-    response: Response,
-    session_token: Optional[str] = Cookie(None, alias=AuthConfig.COOKIE_NAME)
-):
+@router.get("/session")
+async def get_session(session_token: Optional[str] = Cookie(None, alias="authjs.session-token")):
+    """
+    Get current session information in BetterAuth-compatible format
+
+    **Response:**
+    - Returns user and session info if valid session exists
+    - Returns null if no valid session
+    """
+    if not session_token:
+        # Return null as per BetterAuth standard for no session
+        return None
+
+    try:
+        # Validate session
+        session = await get_session_by_token(session_token)
+        if not session:
+            # Return null as per BetterAuth standard for invalid session
+            return None
+
+        # Get user info
+        user = await get_user_by_email(session['user_id'])  # This won't work directly, need user ID
+        # We need to get user by ID instead
+        from ..auth.better_auth_adapter import get_user_by_id
+        user = await get_user_by_id(session['user_id'])
+
+        if not user:
+            # Return null as per BetterAuth standard for invalid user
+            return None
+
+        # Return BetterAuth-compatible session response
+        session_response = {
+            "user": {
+                "id": str(user['id']),
+                "email": user['email'],
+                "emailVerified": user['email_verified_at'],
+                "name": None,  # Name not stored in our system currently
+                "createdAt": user['created_at'].isoformat() if user['created_at'] else None,
+                "updatedAt": user['updated_at'].isoformat() if user['updated_at'] else None
+            },
+            "session": {
+                "id": str(session['id']),
+                "userId": str(session['user_id']),
+                "expires": session['expires_at'].isoformat(),
+                "sessionToken": session['token']
+            }
+        }
+
+        return session_response
+
+    except Exception as e:
+        print(f"Session validation error: {str(e)}")
+        # Return null as per BetterAuth standard for error
+        return None
+
+
+@router.delete("/session")
+async def signout(response: Response, session_token: Optional[str] = Cookie(None, alias="authjs.session-token")):
     """
     Sign out and invalidate current session
 
     **Response:**
-    - 204: Signed out successfully, session cookie cleared
-    - 401: No active session
+    - Clears session cookie
+    - Returns success message
     """
     if not session_token:
-        raise HTTPException(status_code=401, detail="No active session")
+        raise HTTPException(status_code=401, detail={
+            "error": "SignoutFailed",
+            "message": "No active session"
+        })
 
     try:
-        # Invalidate session in database
-        SessionService.invalidate_session(session_token)
+        # Invalidate the session in the database
+        success = await remove_session(session_token)
+        if not success:
+            raise HTTPException(status_code=401, detail={
+                "error": "SignoutFailed",
+                "message": "Session not found"
+            })
 
-        # Clear session cookie
+        # Clear the session cookie
         response.delete_cookie(
-            key=AuthConfig.COOKIE_NAME,
-            httponly=AuthConfig.COOKIE_HTTPONLY,
+            key="authjs.session-token",
+            path="/",
+            httponly=True,
             secure=AuthConfig.COOKIE_SECURE,
             samesite=AuthConfig.COOKIE_SAMESITE
         )
 
-        return None  # 204 No Content
-
-    except Exception as e:
-        print(f"Signout error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to sign out")
-
-
-@router.get("/session", response_model=AuthResponse)
-async def get_session(
-    session_token: Optional[str] = Cookie(None, alias=AuthConfig.COOKIE_NAME)
-):
-    """
-    Get current user session
-
-    **Use Cases:**
-    - Check if user is authenticated
-    - Get current user data
-    - Validate session on page load
-
-    **Response:**
-    - 200: Valid session, returns user data
-    - 401: No session or session expired
-    """
-    if not session_token:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-
-    try:
-        # Validate session
-        session = SessionService.get_current_session(session_token)
-
-        if not session:
-            raise HTTPException(status_code=401, detail="Session expired or invalid")
-
-        # Get user data
-        user = UserService.get_user_by_id(session.user_id)
-
-        if not user:
-            raise HTTPException(status_code=401, detail="User not found")
-
-        return user
+        return {"status": 200, "message": "Successfully signed out"}
 
     except HTTPException:
         raise
     except Exception as e:
-        print(f"Session validation error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to validate session")
+        print(f"Signout error: {str(e)}")
+        raise HTTPException(status_code=500, detail={
+            "error": "SignoutFailed",
+            "message": "Failed to sign out"
+        })
 
 
-@router.delete("/session", status_code=204)
-async def delete_all_sessions(session_data: dict = Depends(require_authentication)):
+# Additional endpoints that might be needed for BetterAuth compatibility
+
+@router.get("/user")
+async def get_user(session_token: Optional[str] = Cookie(None, alias="authjs.session-token")):
     """
-    Delete all sessions for current user (logout from all devices)
-
-    **Authentication Required**
+    Get current user information
 
     **Response:**
-    - 204: All sessions deleted successfully
-    - 401: Not authenticated
+    - Returns user info if valid session exists
+    - Returns 401 if no valid session
     """
+    if not session_token:
+        raise HTTPException(status_code=401, detail={
+            "error": "AuthenticationRequired",
+            "message": "Not authenticated"
+        })
+
     try:
-        user_id = session_data["user_id"]
-        count = SessionService.invalidate_user_sessions(user_id)
+        # Validate session
+        session = await get_session_by_token(session_token)
+        if not session:
+            raise HTTPException(status_code=401, detail={
+                "error": "InvalidSession",
+                "message": "Invalid session"
+            })
 
-        print(f"Deleted {count} sessions for user {user_id}")
-        return None  # 204 No Content
+        # Get user info
+        from ..auth.better_auth_adapter import get_user_by_id
+        user = await get_user_by_id(session['user_id'])
 
+        if not user:
+            raise HTTPException(status_code=401, detail={
+                "error": "UserNotFound",
+                "message": "User not found"
+            })
+
+        # Return BetterAuth-compatible user response
+        user_response = {
+            "id": str(user['id']),
+            "email": user['email'],
+            "emailVerified": user['email_verified_at'],
+            "name": None,  # Name not stored in our system currently
+            "image": None,  # Avatar/image not implemented
+            "createdAt": user['created_at'].isoformat() if user['created_at'] else None,
+            "updatedAt": user['updated_at'].isoformat() if user['updated_at'] else None
+        }
+
+        return user_response
+
+    except HTTPException:
+        raise
     except Exception as e:
-        print(f"Delete all sessions error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to delete sessions")
+        print(f"Get user error: {str(e)}")
+        raise HTTPException(status_code=500, detail={
+            "error": "GetUserFailed",
+            "message": "Failed to get user"
+        })
+
+
+# Endpoint aliases for frontend compatibility
+# Frontend uses /auth/signup and /auth/signin, so we create aliases to /register and /login
+
+@router.post("/signup", response_model=Dict[str, Any])
+async def signup(request: Request, response: Response):
+    """
+    Alias for /register endpoint - for frontend compatibility
+    Identical functionality to /register
+    """
+    return await register(request, response)
+
+
+@router.post("/signin", response_model=Dict[str, Any])
+async def signin(request: Request, response: Response):
+    """
+    Alias for /login endpoint - for frontend compatibility
+    Identical functionality to /login
+    """
+    return await login(request, response)
+
+
+@router.post("/signout", response_model=Dict[str, Any])
+async def signout_post(response: Response, session_token: Optional[str] = Cookie(None, alias="authjs.session-token")):
+    """
+    POST alias for DELETE /session endpoint - for frontend compatibility
+    Identical functionality to DELETE /session
+    """
+    return await signout(response, session_token)

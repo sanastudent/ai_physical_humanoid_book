@@ -8,7 +8,23 @@ import asyncio
 from typing import Optional
 import logging
 
-from ..schema import ComponentStatus, HealthStatus, HealthCheckResult
+# Import from the main schema.py file by using the sys.modules approach
+import importlib.util
+import sys
+from pathlib import Path
+
+# Get the path to the schema.py file specifically (not the schema directory)
+schema_spec = importlib.util.spec_from_file_location(
+    "schema",
+    Path(__file__).parent.parent / "schema.py"
+)
+schema_module = importlib.util.module_from_spec(schema_spec)
+schema_spec.loader.exec_module(schema_module)
+
+# Import required classes
+ComponentStatus = schema_module.ComponentStatus
+HealthStatus = schema_module.HealthStatus
+HealthCheckResult = schema_module.HealthCheckResult
 from ..qdrant_manager import QdrantManager
 from ..embed import EmbeddingGenerator
 from .reporters import create_component_status, create_health_check_result

@@ -1,0 +1,525 @@
+openapi: 3.0.3
+info:
+  title: BetterAuth User Authentication & Background Collection API
+  description: API endpoints for user signup, signin, session management, and background data collection
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000/api
+    description: Local development server
+  - url: https://api.production.com
+    description: Production server
+
+tags:
+  - name: Authentication
+    description: User signup, signin, and session management
+  - name: Background
+    description: User background data collection and updates
+
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: Create new user account
+      description: Register a new user with email/password and create initial session
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                  description: User email address (must be unique)
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: SecurePass123
+                  description: Password (min 8 chars, 1 uppercase, 1 lowercase, 1 number)
+      responses:
+        '201':
+          description: User created successfully and session started
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: session_token=abc123...; HttpOnly; Secure; SameSite=Lax
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  message:
+                    type: string
+                    example: Account created successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Email already registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Email already registered
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /auth/signin:
+    post:
+      tags:
+        - Authentication
+      summary: Sign in existing user
+      description: Authenticate user with email/password and create new session
+      operationId: signin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: SecurePass123
+                rememberMe:
+                  type: boolean
+                  default: false
+                  description: Extend session to 30 days (default 24 hours)
+      responses:
+        '200':
+          description: User authenticated successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: session_token=abc123...; HttpOnly; Secure; SameSite=Lax
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  message:
+                    type: string
+                    example: Signed in successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid email or password
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /auth/signout:
+    post:
+      tags:
+        - Authentication
+      summary: Sign out current user
+      description: Invalidate current session and clear session cookie
+      operationId: signout
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: User signed out successfully
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: session_token=; Max-Age=0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Signed out successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /auth/session:
+    get:
+      tags:
+        - Authentication
+      summary: Get current session
+      description: Retrieve current authenticated user and session information
+      operationId: getSession
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Session retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  session:
+                    $ref: '#/components/schemas/Session'
+        '401':
+          description: No active session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: null
+                  session:
+                    type: null
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /background:
+    post:
+      tags:
+        - Background
+      summary: Create user background data
+      description: Create software and hardware background information for authenticated user
+      operationId: createBackground
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundInput'
+      responses:
+        '201':
+          description: Background data created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Background data already exists for this user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Background data already exists. Use PUT to update.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    get:
+      tags:
+        - Background
+      summary: Get user background data
+      description: Retrieve software and hardware background information for authenticated user
+      operationId: getBackground
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Background data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Background data not found for user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Background data not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    put:
+      tags:
+        - Background
+      summary: Update user background data
+      description: Update software and hardware background information for authenticated user
+      operationId: updateBackground
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundInput'
+      responses:
+        '200':
+          description: Background data updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundData'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Background data not found for user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Background data not found. Use POST to create.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: session_token
+      description: HTTP-only session cookie set by BetterAuth
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-12-11T10:30:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2025-12-11T10:30:00Z'
+      required:
+        - id
+        - email
+        - createdAt
+        - updatedAt
+
+    Session:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        userId:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        expiresAt:
+          type: string
+          format: date-time
+          example: '2025-12-12T10:30:00Z'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-12-11T10:30:00Z'
+      required:
+        - id
+        - userId
+        - expiresAt
+        - createdAt
+
+    SoftwareBackground:
+      type: object
+      properties:
+        experienceLevel:
+          type: string
+          enum: [beginner, intermediate, advanced]
+          example: intermediate
+          description: Software development experience level
+        preferredLanguages:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          example: ['Python', 'JavaScript', 'Go']
+          description: Preferred programming languages
+        preferredFrameworks:
+          type: array
+          items:
+            type: string
+          example: ['FastAPI', 'React', 'Fiber']
+          description: Preferred frameworks and libraries
+      required:
+        - experienceLevel
+        - preferredLanguages
+        - preferredFrameworks
+
+    HardwareBackground:
+      type: object
+      properties:
+        experienceLevel:
+          type: string
+          enum: [beginner, intermediate, advanced]
+          example: beginner
+          description: Hardware development experience level
+        preferredPlatforms:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          example: ['desktop', 'mobile']
+          description: Preferred development platforms
+        deviceTypes:
+          type: array
+          items:
+            type: string
+          example: ['laptop', 'smartphone']
+          description: Familiar device types
+      required:
+        - experienceLevel
+        - preferredPlatforms
+        - deviceTypes
+
+    BackgroundInput:
+      type: object
+      properties:
+        software:
+          $ref: '#/components/schemas/SoftwareBackground'
+        hardware:
+          $ref: '#/components/schemas/HardwareBackground'
+      required:
+        - software
+        - hardware
+
+    BackgroundData:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        software:
+          allOf:
+            - $ref: '#/components/schemas/SoftwareBackground'
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                createdAt:
+                  type: string
+                  format: date-time
+                updatedAt:
+                  type: string
+                  format: date-time
+        hardware:
+          allOf:
+            - $ref: '#/components/schemas/HardwareBackground'
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                createdAt:
+                  type: string
+                  format: date-time
+                updatedAt:
+                  type: string
+                  format: date-time
+      required:
+        - userId
+        - software
+        - hardware
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        details:
+          type: object
+          description: Additional error details
+      required:
+        - error
+
+  responses:
+    BadRequest:
+      description: Invalid request data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Validation failed
+            details:
+              email: Invalid email format
+              password: Password must be at least 8 characters
+
+    Unauthorized:
+      description: Authentication required or session expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Unauthorized
+            details:
+              message: No active session or session expired
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Internal server error
+            details:
+              message: An unexpected error occurred

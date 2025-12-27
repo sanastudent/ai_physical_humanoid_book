@@ -25,6 +25,8 @@ class Session(SessionBase):
     token: str = Field(..., description="Session token")
     created_at: datetime = Field(..., description="Session creation timestamp")
     updated_at: datetime = Field(..., description="Last session activity timestamp")
+    session_type: Optional[str] = Field(default="legacy", description="Session type (legacy or betterauth)")
+    provider_id: Optional[str] = Field(default="credentials", description="Authentication provider ID")
 
     class Config:
         from_attributes = True
@@ -36,6 +38,8 @@ class SessionResponse(BaseModel):
     user_id: UUID = Field(..., description="Associated user ID")
     expires_at: datetime = Field(..., description="Session expiration time")
     created_at: datetime = Field(..., description="Session creation timestamp")
+    session_type: Optional[str] = Field(default="legacy", description="Session type (legacy or betterauth)")
+    provider_id: Optional[str] = Field(default="credentials", description="Authentication provider ID")
 
     class Config:
         from_attributes = True

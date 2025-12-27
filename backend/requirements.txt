@@ -7,6 +7,10 @@ python-multipart==0.0.6
 anthropic==0.18.0
 google-generativeai==0.3.2
 openai==1.10.0
+sentence-transformers==2.2.2
+transformers==4.36.0
+torch==2.1.0
+huggingface-hub==0.19.4
 
 # Vector Database
 qdrant-client==1.7.3
@@ -21,3 +25,8 @@ httpx==0.26.0
 
 # Text Processing
 tiktoken==0.5.2
+
+# Authentication
+passlib==1.7.4
+bcrypt==4.1.2
+psycopg2-binary==2.9.9

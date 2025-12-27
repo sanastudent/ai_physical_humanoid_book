@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '@theme/Layout';
 import SigninForm from '@site/src/components/Auth/SigninForm';
 import { useHistory } from '@docusaurus/router';
+import { translate } from '@docusaurus/Translate';
 
 /**
  * Signin Page
@@ -25,8 +26,8 @@ const SigninPage: React.FC = () => {
 
   return (
     <Layout
-      title="Sign In"
-      description="Sign in to access your personalized learning experience"
+      title={translate({message: 'Sign In'})}
+      description={translate({message: 'Sign in to access your personalized learning experience'})}
     >
       <main>
         <SigninForm onSigninSuccess={handleSigninSuccess} />

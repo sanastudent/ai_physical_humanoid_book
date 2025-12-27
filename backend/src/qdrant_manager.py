@@ -13,7 +13,24 @@ from qdrant_client.http.exceptions import UnexpectedResponse
 from dotenv import load_dotenv
 import uuid
 
-from .schema import QdrantSchema, COLLECTION_NAME, VECTOR_SIZE, DISTANCE_METRIC
+# Import from the main schema.py file by using the sys.modules approach
+import importlib.util
+import sys
+from pathlib import Path
+
+# Get the path to the schema.py file specifically (not the schema directory)
+schema_spec = importlib.util.spec_from_file_location(
+    "schema",
+    Path(__file__).parent / "schema.py"
+)
+schema_module = importlib.util.module_from_spec(schema_spec)
+schema_spec.loader.exec_module(schema_module)
+
+# Import required classes
+QdrantSchema = schema_module.QdrantSchema
+COLLECTION_NAME = schema_module.COLLECTION_NAME
+VECTOR_SIZE = schema_module.VECTOR_SIZE
+DISTANCE_METRIC = schema_module.DISTANCE_METRIC
 
 load_dotenv()
 
@@ -138,11 +155,26 @@ class QdrantManager:
             )
             return results
         except UnexpectedResponse as e:
-            logger.error(f"Search failed: {e}")
-            raise
+            error_msg = str(e)
+            # Handle vector dimension mismatch gracefully (Edge Case #106)
+            if "Vector dimension error" in error_msg and "expected dim:" in error_msg:
+                logger.warning(f"Vector dimension mismatch: {e}")
+                # Return empty results instead of raising an exception
+                # This allows the system to continue operating with graceful degradation
+                return []
+            else:
+                logger.error(f"Search failed: {e}")
+                raise
         except Exception as e:
-            logger.error(f"Unexpected error during search: {e}")
-            raise
+            # Handle other exceptions, including connection errors
+            error_str = str(e).lower()
+            if "vector dimension" in error_str or "dimension" in error_str:
+                logger.warning(f"Vector dimension error during search: {e}")
+                # Return empty results for dimension mismatch
+                return []
+            else:
+                logger.error(f"Unexpected error during search: {e}")
+                raise
 
     def delete_collection(self):
         """Delete the collection with proper error handling (useful for testing)"""
